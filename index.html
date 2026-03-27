@@ -3,2846 +3,1579 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Expert Funnel Builder — Đóng Gói Chuyên Môn & Xây Hệ Thống Funnel Tự Động</title>
-<meta name="description" content="Chương trình mentor giúp chuyên gia, coach, trainer đóng gói chuyên môn thành sản phẩm và xây dựng hệ thống funnel tự động thu hút khách hàng.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<title>HTML Visual Editor</title>
 <style>
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-:root {
-  --bg: #fafafa;
-  --bg-dark: #0a0a0b;
-  --card-bg: #ffffff;
-  --card-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  --card-shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
-  --radius: 16px;
-  --heading: #1d1d1f;
-  --body: #424245;
-  --secondary: #86868b;
-  --divider: #e5e5e7;
-  --red: #FF3B30;
-  --orange: #FF9500;
-  --blue: #007AFF;
-  --green: #34C759;
-  --purple: #AF52DE;
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', monospace;
-  --max-w: 1120px;
-  --section-gap: 140px;
-}
-
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  font-family: var(--font-body);
-  color: var(--body);
-  background: var(--bg);
-  line-height: 1.7;
-  overflow-x: hidden;
-}
-
-/* ═══════════════════════════════════════════
-   UTILITY
-   ═══════════════════════════════════════════ */
-.container {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-.section-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--secondary);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.section-label::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--secondary);
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ═══════════════════════════════════════════
-   NAVIGATION
-   ═══════════════════════════════════════════ */
-.nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  padding: 20px 0;
-  transition: all 0.4s ease;
-}
-
-.nav.scrolled {
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border-bottom: 1px solid rgba(0,0,0,0.06);
-  padding: 14px 0;
-}
-
-.nav-inner {
-  max-width: var(--max-w);
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.nav-logo {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--heading);
-  text-decoration: none;
-  letter-spacing: -0.5px;
-}
-
-.nav-logo span {
-  color: var(--blue);
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.nav-links a {
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--secondary);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  letter-spacing: 0.2px;
-}
-
-.nav-links a:hover {
-  color: var(--heading);
-}
-
-.nav.scrolled .nav-links a {
-  color: var(--body);
-}
-
-.nav.scrolled .nav-links a:hover {
-  color: var(--blue);
-}
-
-@media (max-width: 768px) {
-  .nav-links { display: none; }
-}
-
-.nav-cta {
-  font-family: var(--font-body);
-  font-size: 13px;
-  font-weight: 600;
-  padding: 10px 24px;
-  background: var(--heading);
-  color: #fff;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  letter-spacing: 0.3px;
-}
-
-.nav-cta:hover {
-  background: var(--blue);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0,122,255,0.3);
-}
-
-/* ═══════════════════════════════════════════
-   HERO
-   ═══════════════════════════════════════════ */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  position: relative;
-  padding: 120px 0 100px;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: -200px;
-  right: -300px;
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(0,122,255,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero::after {
-  content: '';
-  position: absolute;
-  bottom: -200px;
-  left: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(175,82,222,0.04) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: center;
-}
-
-.hero-text { }
-
-.hero-visual {
-  position: relative;
-  animation: fadeInUp 1s 0.5s ease forwards;
-  opacity: 0;
-}
-
-.hero-mockup {
-  width: 100%;
-  border-radius: 20px;
-  background: var(--card-bg);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06);
-  overflow: hidden;
-  position: relative;
-}
-
-.hero-mockup-bar {
-  height: 36px;
-  background: #f5f5f7;
-  display: flex;
-  align-items: center;
-  padding: 0 14px;
-  gap: 6px;
-  border-bottom: 1px solid var(--divider);
-}
-
-.hero-mockup-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #e0e0e2;
-}
-
-.hero-mockup-dot:nth-child(1) { background: #FF5F57; }
-.hero-mockup-dot:nth-child(2) { background: #FFBD2E; }
-.hero-mockup-dot:nth-child(3) { background: #28CA42; }
-
-.hero-mockup-body {
-  padding: 28px;
-  min-height: 320px;
-  position: relative;
-}
-
-.funnel-svg {
-  width: 100%;
-  height: auto;
-}
-
-/* Floating badge cards around mockup */
-.hero-float {
-  position: absolute;
-  background: var(--card-bg);
-  border-radius: 12px;
-  padding: 12px 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--heading);
-  z-index: 3;
-  animation: floatBadge 3s ease-in-out infinite;
-}
-
-.hero-float-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-}
-
-.hero-float.f1 {
-  top: 20px;
-  right: -20px;
-  animation-delay: 0s;
-}
-.hero-float.f1 .hero-float-icon { background: #E6F9ED; }
-
-.hero-float.f2 {
-  bottom: 60px;
-  left: -30px;
-  animation-delay: 1s;
-}
-.hero-float.f2 .hero-float-icon { background: #E8F4FD; }
-
-.hero-float.f3 {
-  bottom: -10px;
-  right: 40px;
-  animation-delay: 2s;
-}
-.hero-float.f3 .hero-float-icon { background: #F3E8FF; }
-
-@keyframes floatBadge {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-.hero-eyebrow {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 28px;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(0,122,255,0.06);
-  padding: 8px 18px;
-  border-radius: 100px;
-  animation: fadeInDown 0.8s ease forwards;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: var(--blue);
-  border-radius: 50%;
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.5; transform: scale(1.3); }
-}
-
-.hero h1 {
-  font-family: var(--font-display);
-  font-size: clamp(42px, 6vw, 72px);
-  font-weight: 700;
-  color: var(--heading);
-  line-height: 1.1;
-  letter-spacing: -2px;
-  max-width: 800px;
-  margin-bottom: 32px;
-  animation: fadeInUp 0.8s 0.2s ease forwards;
-  opacity: 0;
-}
-
-.hero h1 em {
-  font-style: italic;
-  color: var(--blue);
-}
-
-.hero-subtitle {
-  font-size: clamp(18px, 2.2vw, 22px);
-  color: var(--secondary);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 48px;
-  font-weight: 300;
-  animation: fadeInUp 0.8s 0.4s ease forwards;
-  opacity: 0;
-}
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  flex-wrap: wrap;
-  animation: fadeInUp 0.8s 0.6s ease forwards;
-  opacity: 0;
-}
-
-.btn-primary {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--font-body);
-  font-size: 16px;
-  font-weight: 600;
-  padding: 18px 36px;
-  background: var(--heading);
-  color: #fff;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-  letter-spacing: 0.2px;
-}
-
-.btn-primary:hover {
-  background: var(--blue);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0,122,255,0.3);
-}
-
-.btn-secondary {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-family: var(--font-body);
-  font-size: 15px;
-  font-weight: 500;
-  color: var(--body);
-  text-decoration: none;
-  padding: 18px 28px;
-  border-radius: 100px;
-  border: 1px solid var(--divider);
-  transition: all 0.3s ease;
-}
-
-.btn-secondary:hover {
-  border-color: var(--heading);
-  color: var(--heading);
-}
-
-.hero-stats {
-  display: flex;
-  gap: 48px;
-  margin-top: 80px;
-  padding-top: 40px;
-  border-top: 1px solid var(--divider);
-  animation: fadeInUp 0.8s 0.8s ease forwards;
-  opacity: 0;
-  grid-column: 1 / -1;
-}
-
-.hero-stat-number {
-  font-family: var(--font-display);
-  font-size: 36px;
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1px;
-}
-
-.hero-stat-label {
-  font-size: 13px;
-  color: var(--secondary);
-  margin-top: 4px;
-  font-weight: 500;
-}
-
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ═══════════════════════════════════════════
-   QUOTE BANNER
-   ═══════════════════════════════════════════ */
-.quote-banner {
-  padding: 80px 0;
-  background: var(--bg-dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.quote-banner::before {
-  content: '"';
-  position: absolute;
-  top: -20px;
-  left: 10%;
-  font-family: var(--font-display);
-  font-size: 300px;
-  color: rgba(255,255,255,0.03);
-  pointer-events: none;
-}
-
-.quote-text {
-  font-family: var(--font-display);
-  font-size: clamp(24px, 3.5vw, 38px);
-  font-weight: 500;
-  color: #fff;
-  text-align: center;
-  line-height: 1.5;
-  max-width: 720px;
-  margin: 0 auto;
-  font-style: italic;
-}
-
-.quote-text span {
-  color: var(--blue);
-  font-style: normal;
-  font-weight: 700;
-}
-
-/* ═══════════════════════════════════════════
-   PROBLEMS
-   ═══════════════════════════════════════════ */
-.problems {
-  padding: var(--section-gap) 0;
-}
-
-.problems-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 60px;
-  align-items: start;
-}
-
-.problems-left { }
-
-.problems-illustration {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.problems-illustration svg {
-  width: 100%;
-  max-width: 420px;
-  height: auto;
-}
-
-@media (max-width: 768px) {
-  .problems-layout {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .problems-illustration { order: -1; }
-}
-
-.problems-header {
-  max-width: 600px;
-  margin-bottom: 64px;
-}
-
-.problems-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.problems-header p {
-  font-size: 17px;
-  color: var(--secondary);
-  line-height: 1.7;
-}
-
-.problems-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 16px;
-}
-
-.problem-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 28px;
-  box-shadow: var(--card-shadow);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  gap: 18px;
-  align-items: flex-start;
-}
-
-.problem-card:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-4px);
-}
-
-.problem-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
-  background: #FFF2F1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  font-size: 20px;
-}
-
-.problem-card:nth-child(2) .problem-icon { background: #FFF5E6; }
-.problem-card:nth-child(3) .problem-icon { background: #E8F4FD; }
-.problem-card:nth-child(4) .problem-icon { background: #F3E8FF; }
-.problem-card:nth-child(5) .problem-icon { background: #E6F9ED; }
-.problem-card:nth-child(6) .problem-icon { background: #FFF2F1; }
-
-.problem-text h3 {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--heading);
-  margin-bottom: 6px;
-  line-height: 1.4;
-}
-
-.problem-text p {
-  font-size: 14px;
-  color: var(--secondary);
-  line-height: 1.6;
-}
-
-/* ═══════════════════════════════════════════
-   OUTCOMES
-   ═══════════════════════════════════════════ */
-.outcomes {
-  padding: var(--section-gap) 0;
-  background: linear-gradient(180deg, #f5f5f7 0%, var(--bg) 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.outcomes::before {
-  content: '';
-  position: absolute;
-  top: -100px;
-  left: -200px;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(0,122,255,0.05) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.outcomes::after {
-  content: '';
-  position: absolute;
-  bottom: -150px;
-  right: -200px;
-  width: 700px;
-  height: 700px;
-  background: radial-gradient(circle, rgba(52,199,89,0.04) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.outcomes .container { position: relative; z-index: 2; }
-
-.outcomes-bg-pattern {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.outcomes-bg-pattern svg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0.035;
-}
-
-.outcomes-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 72px;
-}
-
-.outcomes-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.outcomes-header p {
-  font-size: 17px;
-  color: var(--secondary);
-}
-
-.outcomes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.outcome-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 32px;
-  box-shadow: var(--card-shadow);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  position: relative;
-  overflow: hidden;
-}
-
-.outcome-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  border-radius: var(--radius) var(--radius) 0 0;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.outcome-card:hover::before { opacity: 1; }
-.outcome-card:hover { box-shadow: var(--card-shadow-hover); transform: translateY(-4px); }
-
-.outcome-card:nth-child(1)::before { background: var(--blue); }
-.outcome-card:nth-child(2)::before { background: var(--green); }
-.outcome-card:nth-child(3)::before { background: var(--orange); }
-.outcome-card:nth-child(4)::before { background: var(--purple); }
-.outcome-card:nth-child(5)::before { background: var(--red); }
-
-.outcome-number {
-  font-family: var(--font-display);
-  font-size: 48px;
-  font-weight: 800;
-  line-height: 1;
-  margin-bottom: 16px;
-  letter-spacing: -2px;
-}
-
-.outcome-card:nth-child(1) .outcome-number { color: var(--blue); }
-.outcome-card:nth-child(2) .outcome-number { color: var(--green); }
-.outcome-card:nth-child(3) .outcome-number { color: var(--orange); }
-.outcome-card:nth-child(4) .outcome-number { color: var(--purple); }
-.outcome-card:nth-child(5) .outcome-number { color: var(--red); }
-
-.outcome-card-visual {
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 18px;
-  position: relative;
-}
-
-.outcome-card:nth-child(1) .outcome-card-visual { background: rgba(0,122,255,0.08); }
-.outcome-card:nth-child(2) .outcome-card-visual { background: rgba(52,199,89,0.08); }
-.outcome-card:nth-child(3) .outcome-card-visual { background: rgba(255,149,0,0.08); }
-.outcome-card:nth-child(4) .outcome-card-visual { background: rgba(175,82,222,0.08); }
-.outcome-card:nth-child(5) .outcome-card-visual { background: rgba(255,59,48,0.08); }
-
-.outcome-card-visual svg {
-  width: 28px;
-  height: 28px;
-}
-
-.outcome-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--heading);
-  margin-bottom: 12px;
-  line-height: 1.3;
-}
-
-/* ═══════════════════════════════════════════
-   TESTIMONIALS
-   ═══════════════════════════════════════════ */
-.testimonials {
-  padding: var(--section-gap) 0;
-  background: #f5f5f7;
-  overflow: hidden;
-}
-
-.testimonials-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 64px;
-}
-
-.testimonials-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.testimonials-header p {
-  font-size: 17px;
-  color: var(--secondary);
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.testimonial-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 32px;
-  box-shadow: var(--card-shadow);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  display: flex;
-  flex-direction: column;
-}
-
-.testimonial-card:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-4px);
-}
-
-.testimonial-stars {
-  display: flex;
-  gap: 2px;
-  margin-bottom: 16px;
-  color: #FFB800;
-  font-size: 14px;
-  letter-spacing: 2px;
-}
-
-.testimonial-quote {
-  font-size: 15px;
-  color: var(--body);
-  line-height: 1.7;
-  flex: 1;
-  margin-bottom: 24px;
-  position: relative;
-}
-
-.testimonial-result {
-  background: linear-gradient(135deg, rgba(0,122,255,0.06), rgba(52,199,89,0.06));
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.testimonial-result-icon {
-  font-size: 20px;
-}
-
-.testimonial-result-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--heading);
-  line-height: 1.4;
-}
-
-.testimonial-result-text span {
-  color: var(--green);
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding-top: 20px;
-  border-top: 1px solid var(--divider);
-}
-
-.testimonial-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  flex-shrink: 0;
-}
-
-.testimonial-card:nth-child(1) .testimonial-avatar { background: linear-gradient(135deg, #007AFF, #5856D6); }
-.testimonial-card:nth-child(2) .testimonial-avatar { background: linear-gradient(135deg, #34C759, #30B0C7); }
-.testimonial-card:nth-child(3) .testimonial-avatar { background: linear-gradient(135deg, #AF52DE, #FF2D55); }
-
-.testimonial-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--heading);
-}
-
-.testimonial-role {
-  font-size: 12px;
-  color: var(--secondary);
-  margin-top: 2px;
-}
-
-/* Video testimonials */
-.testimonials-video-header {
-  text-align: center;
-  margin-top: 80px;
-  margin-bottom: 40px;
-}
-
-.testimonials-video-header h3 {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -0.5px;
-}
-
-.testimonials-videos {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-}
-
-.video-card {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  overflow: hidden;
-  box-shadow: var(--card-shadow);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.video-card:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-4px);
-}
-
-.video-placeholder {
-  position: relative;
-  padding-top: 56.25%;
-  background: linear-gradient(135deg, #1d1d1f, #2d2d30);
-  cursor: pointer;
-}
-
-.video-placeholder iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-.video-play-btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 64px;
-  height: 64px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(10px);
-  transition: all 0.3s ease;
-}
-
-.video-placeholder:hover .video-play-btn {
-  background: var(--blue);
-  transform: translate(-50%, -50%) scale(1.1);
-}
-
-.video-play-btn::after {
-  content: '';
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 10px 0 10px 18px;
-  border-color: transparent transparent transparent #fff;
-  margin-left: 3px;
-}
-
-.video-card-info {
-  padding: 16px 20px;
-}
-
-.video-card-name {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--heading);
-}
-
-.video-card-desc {
-  font-size: 12px;
-  color: var(--secondary);
-  margin-top: 2px;
-}
-
-@media (max-width: 768px) {
-  .testimonials-videos { grid-template-columns: 1fr; }
-}
-
-/* Timeline success illustrations */
-.timeline-success {
-  margin-top: 16px;
-  padding: 14px 18px;
-  background: linear-gradient(135deg, rgba(0,122,255,0.04), rgba(52,199,89,0.04));
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border: 1px solid rgba(0,0,0,0.04);
-}
-
-.timeline-success-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  flex-shrink: 0;
-}
-
-.timeline-item:nth-child(1) .timeline-success-icon { background: rgba(0,122,255,0.08); }
-.timeline-item:nth-child(2) .timeline-success-icon { background: rgba(52,199,89,0.08); }
-.timeline-item:nth-child(3) .timeline-success-icon { background: rgba(255,149,0,0.08); }
-.timeline-item:nth-child(4) .timeline-success-icon { background: rgba(175,82,222,0.08); }
-.timeline-item:nth-child(5) .timeline-success-icon { background: rgba(255,59,48,0.08); }
-
-.timeline-success-text {
-  font-size: 13px;
-  color: var(--body);
-  line-height: 1.5;
-}
-
-.timeline-success-text strong {
-  color: var(--heading);
-  font-weight: 600;
-}
-
-/* Diff section - mentor intro */
-.mentor-intro {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 32px;
-  align-items: center;
-  margin-bottom: 64px;
-  padding: 32px;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius);
-}
-
-.mentor-avatar-wrapper {
-  position: relative;
-}
-
-.mentor-avatar-large {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #007AFF, #5856D6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  font-weight: 700;
-  color: #fff;
-  font-family: var(--font-display);
-  position: relative;
-}
-
-.mentor-badge {
-  position: absolute;
-  bottom: -4px;
-  right: -4px;
-  background: var(--green);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 100px;
-  border: 3px solid var(--bg-dark);
-}
-
-.mentor-info h3 {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 8px;
-}
-
-.mentor-info .mentor-title {
-  font-size: 14px;
-  color: var(--blue);
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-.mentor-info .mentor-bio {
-  font-size: 15px;
-  color: rgba(255,255,255,0.6);
-  line-height: 1.7;
-  margin-bottom: 16px;
-}
-
-.mentor-stats {
-  display: flex;
-  gap: 24px;
-}
-
-.mentor-stat {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  color: rgba(255,255,255,0.5);
-}
-
-.mentor-stat strong {
-  color: #fff;
-  font-weight: 700;
-}
-
-.diff-illustration {
-  position: relative;
-  margin-bottom: 48px;
-  display: flex;
-  justify-content: center;
-}
-
-.diff-illustration svg {
-  max-width: 600px;
-  width: 100%;
-  height: auto;
-}
-
-@media (max-width: 768px) {
-  .mentor-intro {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-  .mentor-avatar-wrapper { margin: 0 auto; }
-  .mentor-stats { justify-content: center; flex-wrap: wrap; }
-}
-
-.outcome-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.outcome-list li {
-  font-size: 14px;
-  color: var(--body);
-  padding-left: 20px;
-  position: relative;
-  line-height: 1.6;
-}
-
-.outcome-list li::before {
-  content: '→';
-  position: absolute;
-  left: 0;
-  color: var(--secondary);
-  font-weight: 600;
-}
-
-/* ═══════════════════════════════════════════
-   FRAMEWORK / TIMELINE
-   ═══════════════════════════════════════════ */
-.framework {
-  padding: var(--section-gap) 0;
-}
-
-.framework-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 80px;
-}
-
-.framework-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.framework-header p {
-  font-size: 17px;
-  color: var(--secondary);
-}
-
-.timeline {
-  position: relative;
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 28px;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: linear-gradient(180deg, var(--blue), var(--purple), var(--green));
-  border-radius: 2px;
-}
-
-.timeline-item {
-  position: relative;
-  padding-left: 76px;
-  padding-bottom: 56px;
-}
-
-.timeline-item:last-child {
-  padding-bottom: 0;
-}
-
-.timeline-dot {
-  position: absolute;
-  left: 16px;
-  top: 4px;
-  width: 26px;
-  height: 26px;
-  border-radius: 50%;
-  border: 3px solid var(--bg);
-  box-shadow: 0 0 0 2px var(--blue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timeline-dot-inner {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--blue);
-}
-
-.timeline-item:nth-child(2) .timeline-dot { box-shadow: 0 0 0 2px var(--green); }
-.timeline-item:nth-child(2) .timeline-dot-inner { background: var(--green); }
-.timeline-item:nth-child(3) .timeline-dot { box-shadow: 0 0 0 2px var(--orange); }
-.timeline-item:nth-child(3) .timeline-dot-inner { background: var(--orange); }
-.timeline-item:nth-child(4) .timeline-dot { box-shadow: 0 0 0 2px var(--purple); }
-.timeline-item:nth-child(4) .timeline-dot-inner { background: var(--purple); }
-.timeline-item:nth-child(5) .timeline-dot { box-shadow: 0 0 0 2px var(--red); }
-.timeline-item:nth-child(5) .timeline-dot-inner { background: var(--red); }
-
-.timeline-phase {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--blue);
-  margin-bottom: 8px;
-}
-
-.timeline-item:nth-child(2) .timeline-phase { color: var(--green); }
-.timeline-item:nth-child(3) .timeline-phase { color: var(--orange); }
-.timeline-item:nth-child(4) .timeline-phase { color: var(--purple); }
-.timeline-item:nth-child(5) .timeline-phase { color: var(--red); }
-
-.timeline-title {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-  color: var(--heading);
-  margin-bottom: 12px;
-  letter-spacing: -0.5px;
-}
-
-.timeline-tasks {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.timeline-tasks li {
-  font-size: 15px;
-  color: var(--body);
-  padding-left: 22px;
-  position: relative;
-  line-height: 1.6;
-}
-
-.timeline-tasks li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 10px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--divider);
-}
-
-/* ═══════════════════════════════════════════
-   DIFFERENTIATORS
-   ═══════════════════════════════════════════ */
-.diff {
-  padding: var(--section-gap) 0;
-  background: var(--bg-dark);
-  position: relative;
-  overflow: hidden;
-}
-
-.diff::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(0,122,255,0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 50%, rgba(175,82,222,0.06) 0%, transparent 50%);
-  pointer-events: none;
-}
-
-.diff .container { position: relative; z-index: 2; }
-
-.diff-header {
-  text-align: center;
-  max-width: 640px;
-  margin: 0 auto 72px;
-}
-
-.diff-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: #fff;
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.diff-header p {
-  font-size: 17px;
-  color: rgba(255,255,255,0.5);
-}
-
-.diff-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-.diff-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius);
-  padding: 32px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.diff-card:hover {
-  background: rgba(255,255,255,0.08);
-  border-color: rgba(255,255,255,0.15);
-  transform: translateY(-4px);
-}
-
-.diff-card-icon {
-  font-size: 32px;
-  margin-bottom: 20px;
-  display: block;
-}
-
-.diff-card h3 {
-  font-size: 18px;
-  font-weight: 700;
-  color: #fff;
-  margin-bottom: 10px;
-}
-
-.diff-card p {
-  font-size: 14px;
-  color: rgba(255,255,255,0.55);
-  line-height: 1.7;
-}
-
-/* ═══════════════════════════════════════════
-   AUDIENCE
-   ═══════════════════════════════════════════ */
-.audience {
-  padding: var(--section-gap) 0;
-}
-
-.audience-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 64px;
-}
-
-.audience-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.audience-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.audience-col {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 32px;
-  box-shadow: var(--card-shadow);
-}
-
-.audience-col.yes { border-top: 3px solid var(--green); }
-.audience-col.no { border-top: 3px solid var(--red); }
-
-.audience-col h3 {
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--heading);
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.audience-col.yes h3::before { content: '✓'; color: var(--green); font-weight: 800; }
-.audience-col.no h3::before { content: '✕'; color: var(--red); font-weight: 800; }
-
-.audience-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.audience-list li {
-  font-size: 14px;
-  color: var(--body);
-  line-height: 1.6;
-  padding-left: 0;
-}
-
-/* ═══════════════════════════════════════════
-   RESOURCES
-   ═══════════════════════════════════════════ */
-.resources {
-  padding: var(--section-gap) 0;
-  background: linear-gradient(180deg, var(--bg) 0%, #f5f5f7 100%);
-}
-
-.resources-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 64px;
-}
-
-.resources-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.resources-header p {
-  font-size: 17px;
-  color: var(--secondary);
-}
-
-.resources-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-.resource-item {
-  background: var(--card-bg);
-  border-radius: var(--radius);
-  padding: 24px;
-  box-shadow: var(--card-shadow);
-  text-align: center;
-  transition: all 0.3s ease;
-}
-
-.resource-item:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-2px);
-}
-
-.resource-icon {
-  font-size: 28px;
-  margin-bottom: 12px;
-}
-
-.resource-item h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--heading);
-  margin-bottom: 4px;
-}
-
-.resource-item p {
-  font-size: 12px;
-  color: var(--secondary);
-}
-
-/* ═══════════════════════════════════════════
-   FAQ
-   ═══════════════════════════════════════════ */
-.faq {
-  padding: var(--section-gap) 0;
-}
-
-.faq-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 64px;
-}
-
-.faq-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-}
-
-.faq-list {
-  max-width: 720px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-.faq-item {
-  border-bottom: 1px solid var(--divider);
-}
-
-.faq-question {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 24px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  text-align: left;
-  gap: 20px;
-}
-
-.faq-question h3 {
-  font-family: var(--font-body);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--heading);
-  line-height: 1.4;
-}
-
-.faq-toggle {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #f5f5f7;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  transition: all 0.3s ease;
-  font-size: 16px;
-  color: var(--secondary);
-}
-
-.faq-item.open .faq-toggle {
-  background: var(--heading);
-  color: #fff;
-  transform: rotate(45deg);
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.faq-item.open .faq-answer {
-  max-height: 200px;
-}
-
-.faq-answer p {
-  padding-bottom: 24px;
-  font-size: 15px;
-  color: var(--body);
-  line-height: 1.7;
-}
-
-/* ═══════════════════════════════════════════
-   PROCESS
-   ═══════════════════════════════════════════ */
-.process {
-  padding: var(--section-gap) 0;
-  background: #f5f5f7;
-}
-
-.process-header {
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto 64px;
-}
-
-.process-header h2 {
-  font-family: var(--font-display);
-  font-size: clamp(32px, 4vw, 44px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -1.5px;
-  line-height: 1.15;
-  margin-bottom: 16px;
-}
-
-.process-steps {
-  display: flex;
-  gap: 0;
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-}
-
-.process-steps::before {
-  content: '';
-  position: absolute;
-  top: 24px;
-  left: 24px;
-  right: 24px;
-  height: 2px;
-  background: var(--divider);
-}
-
-.process-step {
-  flex: 1;
-  text-align: center;
-  position: relative;
-  padding: 0 12px;
-}
-
-.process-step-number {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--card-bg);
-  border: 2px solid var(--divider);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 16px;
-  font-family: var(--font-mono);
-  font-size: 14px;
-  font-weight: 700;
-  color: var(--heading);
-  position: relative;
-  z-index: 2;
-  transition: all 0.3s ease;
-}
-
-.process-step:hover .process-step-number {
-  background: var(--blue);
-  border-color: var(--blue);
-  color: #fff;
-}
-
-.process-step h4 {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--heading);
-  margin-bottom: 4px;
-}
-
-.process-step p {
-  font-size: 12px;
-  color: var(--secondary);
-  line-height: 1.5;
-}
-
-/* ═══════════════════════════════════════════
-   CTA SECTION
-   ═══════════════════════════════════════════ */
-.cta-section {
-  padding: var(--section-gap) 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 50% 0%, rgba(0,122,255,0.06) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.cta-content {
-  position: relative;
-  z-index: 2;
-  max-width: 640px;
-  margin: 0 auto;
-}
-
-.cta-content h2 {
-  font-family: var(--font-display);
-  font-size: clamp(36px, 5vw, 52px);
-  font-weight: 700;
-  color: var(--heading);
-  letter-spacing: -2px;
-  line-height: 1.15;
-  margin-bottom: 20px;
-}
-
-.cta-content h2 em {
-  font-style: italic;
-  color: var(--blue);
-}
-
-.cta-content p {
-  font-size: 18px;
-  color: var(--secondary);
-  margin-bottom: 40px;
-  line-height: 1.7;
-}
-
-.cta-features {
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 48px;
-  flex-wrap: wrap;
-}
-
-.cta-feature {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--body);
-  font-weight: 500;
-}
-
-.cta-feature::before {
-  content: '✓';
-  color: var(--green);
-  font-weight: 800;
-  font-size: 16px;
-}
-
-.cta-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--font-body);
-  font-size: 18px;
-  font-weight: 600;
-  padding: 22px 48px;
-  background: linear-gradient(135deg, var(--heading) 0%, #2d2d30 100%);
-  color: #fff;
-  border: none;
-  border-radius: 100px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  letter-spacing: 0.2px;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, var(--blue) 0%, #0055d4 100%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  border-radius: 100px;
-}
-
-.cta-btn span {
-  position: relative;
-  z-index: 2;
-}
-
-.cta-btn:hover::after {
-  opacity: 1;
-}
-
-.cta-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0,122,255,0.3);
-}
-
-.cta-note {
-  margin-top: 16px;
-  font-size: 13px;
-  color: var(--secondary);
-}
-
-/* ═══════════════════════════════════════════
-   FOOTER
-   ═══════════════════════════════════════════ */
-.footer {
-  padding: 40px 0;
-  border-top: 1px solid var(--divider);
-  text-align: center;
-}
-
-.footer p {
-  font-size: 13px;
-  color: var(--secondary);
-}
-
-.footer a {
-  color: var(--body);
-  text-decoration: none;
-}
-
-.footer a:hover { color: var(--blue); }
-
-/* ═══════════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════════ */
-@media (max-width: 768px) {
-  :root { --section-gap: 80px; }
-
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .hero-visual { order: -1; }
-
-  .hero-float { display: none; }
-
-  .hero-stats {
-    gap: 32px;
-    flex-wrap: wrap;
-  }
-
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .audience-columns {
-    grid-template-columns: 1fr;
-  }
-
-  .process-steps {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .process-steps::before {
-    top: 0;
-    bottom: 0;
-    left: 24px;
-    right: auto;
-    width: 2px;
-    height: auto;
-  }
-
-  .process-step {
-    text-align: left;
-    padding-left: 60px;
-    padding-right: 0;
-  }
-
-  .process-step-number {
-    position: absolute;
-    left: 0;
-    top: 0;
-    margin: 0;
-  }
-
-  .cta-features { gap: 16px; flex-direction: column; align-items: center; }
-
-  .timeline::before { left: 18px; }
-  .timeline-item { padding-left: 56px; }
-  .timeline-dot { left: 6px; }
-}
-
-@media (max-width: 480px) {
-  .problems-grid { grid-template-columns: 1fr; }
-  .outcomes-grid { grid-template-columns: 1fr; }
-  .diff-grid { grid-template-columns: 1fr; }
-  .resources-list { grid-template-columns: repeat(2, 1fr); }
-  .hero h1 { letter-spacing: -1px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg-deep:#0f1117;--bg-surface:#181a24;--bg-panel:#1e2030;--bg-elevated:#252839;
+  --border:#2a2d3e;--border-hover:#3d4158;
+  --text:#e4e6f0;--text-muted:#8b8fa8;--text-dim:#5c6078;
+  --accent:#22d3a7;--accent-glow:rgba(34,211,167,.15);--accent-hover:#1bb892;
+  --danger:#f0475c;--warning:#f0a847;--info:#4799f0;
+  --code-bg:#141620;
+  --radius:8px;--radius-lg:12px;
+  --font-ui:"SF Pro Display","Segoe UI","Helvetica Neue",system-ui,sans-serif;
+  --font-code:"SF Mono","Cascadia Code","Fira Code","JetBrains Mono","Consolas",monospace;
+  --shadow:0 4px 24px rgba(0,0,0,.4);
+  --transition:all .2s cubic-bezier(.4,0,.2,1);
+}
+[data-theme="light"]{
+  --bg-deep:#f0f1f5;--bg-surface:#f8f9fc;--bg-panel:#ffffff;--bg-elevated:#ecedf2;
+  --border:#d8dae3;--border-hover:#c0c3d0;
+  --text:#1a1c28;--text-muted:#6b6e82;--text-dim:#9b9eb2;
+  --accent:#0fa882;--accent-glow:rgba(15,168,130,.1);--accent-hover:#0d9474;
+  --danger:#d93a4e;--warning:#d49338;--info:#3a84d9;
+  --code-bg:#f0f1f5;
+  --shadow:0 4px 24px rgba(0,0,0,.08);
+}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:var(--font-ui);background:var(--bg-deep);color:var(--text);
+  display:flex;flex-direction:column;
+}
+
+/* ═══ TOOLBAR ═══ */
+.toolbar{
+  display:flex;align-items:center;gap:6px;padding:8px 12px;
+  background:var(--bg-surface);border-bottom:1px solid var(--border);
+  flex-shrink:0;z-index:100;flex-wrap:wrap;
+}
+.toolbar-brand{
+  font-weight:700;font-size:15px;letter-spacing:-.3px;
+  color:var(--accent);margin-right:8px;white-space:nowrap;
+  display:flex;align-items:center;gap:6px;
+}
+.toolbar-brand svg{width:20px;height:20px}
+.toolbar-sep{width:1px;height:24px;background:var(--border);margin:0 4px;flex-shrink:0}
+.btn{
+  display:inline-flex;align-items:center;gap:5px;
+  padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--bg-panel);color:var(--text);font-size:12.5px;font-family:var(--font-ui);
+  cursor:pointer;transition:var(--transition);white-space:nowrap;
+  font-weight:500;
+}
+.btn:hover{border-color:var(--accent);background:var(--accent-glow);color:var(--accent)}
+.btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:#0f1117;border-color:var(--accent);font-weight:600}
+.btn.primary:hover{background:var(--accent-hover)}
+.btn.danger{border-color:var(--danger);color:var(--danger)}
+.btn.danger:hover{background:var(--danger);color:#fff}
+.btn svg{width:15px;height:15px;flex-shrink:0}
+.btn-group{display:flex;gap:0}
+.btn-group .btn{border-radius:0}
+.btn-group .btn:first-child{border-radius:var(--radius) 0 0 var(--radius)}
+.btn-group .btn:last-child{border-radius:0 var(--radius) var(--radius) 0}
+.btn-group .btn+.btn{border-left:0}
+
+/* ═══ MAIN AREA ═══ */
+.main{display:flex;flex:1;overflow:hidden;position:relative}
+.panel{
+  display:flex;flex-direction:column;overflow:hidden;
+  transition:width .3s cubic-bezier(.4,0,.2,1),flex .3s cubic-bezier(.4,0,.2,1);
+}
+.panel-code{
+  width:50%;border-right:1px solid var(--border);background:var(--code-bg);
+}
+.panel-preview{flex:1;background:var(--bg-panel);position:relative}
+.panel-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:6px 12px;background:var(--bg-surface);border-bottom:1px solid var(--border);
+  font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;
+  color:var(--text-muted);flex-shrink:0;
+}
+.panel-header span{display:flex;align-items:center;gap:4px}
+
+/* ═══ CODE EDITOR ═══ */
+.code-wrap{flex:1;display:flex;overflow:hidden;position:relative;clip:rect(0,auto,auto,0)}
+.line-numbers{
+  width:44px;padding:12px 8px 12px 4px;text-align:right;
+  font-family:var(--font-code);font-size:12px;line-height:1.6;
+  color:var(--text-dim);background:var(--bg-surface);
+  overflow:hidden;user-select:none;flex-shrink:0;border-right:1px solid var(--border);
+}
+#codeEditor{
+  flex:1;padding:12px;border:none;outline:none;resize:none;
+  font-family:var(--font-code);font-size:12.5px;line-height:1.6;
+  color:var(--text);background:transparent;
+  tab-size:2;white-space:pre;overflow:auto;
+}
+#codeEditor::placeholder{color:var(--text-dim)}
+
+/* ═══ PREVIEW ═══ */
+.preview-container{flex:1;display:flex;justify-content:center;overflow:auto;background:var(--bg-elevated);padding:0}
+.preview-frame-wrap{
+  width:100%;height:100%;transition:width .3s ease;
+  position:relative;background:#fff;
+}
+.preview-frame-wrap.tablet{max-width:768px;margin:16px auto;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+.preview-frame-wrap.mobile{max-width:375px;margin:16px auto;border-radius:var(--radius-lg);box-shadow:var(--shadow)}
+#previewFrame{width:100%;height:100%;border:none;display:block}
+
+/* ═══ RESIZER ═══ */
+.resizer{
+  width:5px;cursor:col-resize;background:var(--border);
+  transition:background .2s;flex-shrink:0;position:relative;z-index:10;
+}
+.resizer:hover,.resizer.active{background:var(--accent)}
+
+/* ═══ FLOATING TOOLBAR ═══ */
+.float-toolbar{
+  position:fixed;display:none;flex-wrap:wrap;align-items:center;gap:3px;
+  padding:6px 8px;background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:var(--radius-lg);box-shadow:var(--shadow);z-index:9999;
+  max-width:520px;
+}
+.float-toolbar.visible{display:flex;animation:ftFadeIn .15s ease}
+@keyframes ftFadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+.ft-btn{
+  width:30px;height:30px;display:flex;align-items:center;justify-content:center;
+  border:none;border-radius:6px;background:transparent;color:var(--text-muted);
+  cursor:pointer;transition:var(--transition);font-size:13px;
+}
+.ft-btn:hover{background:var(--accent-glow);color:var(--accent)}
+.ft-btn.active{background:var(--accent);color:#fff}
+.ft-btn svg{width:14px;height:14px}
+.ft-sep{width:1px;height:20px;background:var(--border);margin:0 2px}
+.ft-select{
+  padding:3px 6px;border:1px solid var(--border);border-radius:6px;
+  background:var(--bg-panel);color:var(--text);font-size:11.5px;
+  font-family:var(--font-ui);cursor:pointer;outline:none;max-width:110px;
+}
+.ft-select:focus{border-color:var(--accent)}
+.ft-color{
+  width:26px;height:26px;border:2px solid var(--border);border-radius:6px;
+  cursor:pointer;padding:0;overflow:hidden;
+}
+.ft-color::-webkit-color-swatch-wrapper{padding:0}
+.ft-color::-webkit-color-swatch{border:none;border-radius:4px}
+
+/* ═══ MODALS ═══ */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;z-index:10000;
+}
+.modal-overlay.visible{display:flex;animation:modalIn .2s ease}
+@keyframes modalIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--bg-surface);border:1px solid var(--border);border-radius:var(--radius-lg);
+  padding:24px;width:90%;max-width:480px;box-shadow:0 16px 64px rgba(0,0,0,.5);
+  animation:modalSlide .25s ease;
+}
+@keyframes modalSlide{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.modal h3 svg{width:20px;height:20px;color:var(--accent)}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:.5px}
+.field input,.field select,.field textarea{
+  width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius);
+  background:var(--bg-panel);color:var(--text);font-size:13px;font-family:var(--font-ui);
+  outline:none;transition:var(--transition);
+}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-glow)}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
+.img-preview-box{
+  width:100%;height:120px;border:2px dashed var(--border);border-radius:var(--radius);
+  display:flex;align-items:center;justify-content:center;color:var(--text-dim);
+  font-size:13px;margin-bottom:12px;overflow:hidden;cursor:pointer;transition:var(--transition);
+  position:relative;
+}
+.img-preview-box:hover{border-color:var(--accent);color:var(--accent)}
+.img-preview-box img{max-width:100%;max-height:100%;object-fit:contain}
+
+/* ═══ STATUS BAR ═══ */
+.statusbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:4px 12px;background:var(--bg-surface);border-top:1px solid var(--border);
+  font-size:11px;color:var(--text-dim);flex-shrink:0;gap:12px;
+}
+.statusbar-left,.statusbar-right{display:flex;align-items:center;gap:12px}
+.status-tag{
+  padding:2px 8px;border-radius:4px;background:var(--accent-glow);
+  color:var(--accent);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.5px;
+}
+
+/* ═══ ELEMENT HIGHLIGHT ═══ */
+.editor-highlight{outline:2px solid rgba(34,211,167,.5)!important;outline-offset:2px;cursor:pointer}
+.editor-editing{outline:2px solid var(--accent)!important;outline-offset:2px;background:rgba(34,211,167,.03)!important}
+.editor-img-highlight{outline:2px solid var(--info)!important;outline-offset:2px;cursor:pointer;position:relative}
+.editor-link-indicator{text-decoration:underline wavy var(--accent)!important;cursor:pointer}
+
+/* ═══ TOAST ═══ */
+.toast-container{position:fixed;top:60px;right:16px;z-index:99999;display:flex;flex-direction:column;gap:8px}
+.toast{
+  padding:10px 16px;border-radius:var(--radius);font-size:13px;font-weight:500;
+  box-shadow:var(--shadow);animation:toastIn .3s ease;display:flex;align-items:center;gap:8px;
+  max-width:320px;
+}
+.toast.success{background:#0d2818;border:1px solid #22d3a7;color:#22d3a7}
+.toast.error{background:#2d0f14;border:1px solid var(--danger);color:var(--danger)}
+.toast.info{background:#0f1a2d;border:1px solid var(--info);color:var(--info)}
+[data-theme="light"] .toast.success{background:#e8faf4;color:#0a7a5a}
+[data-theme="light"] .toast.error{background:#fce8eb;color:#c0293d}
+[data-theme="light"] .toast.info{background:#e8f0fc;color:#2a6bbf}
+@keyframes toastIn{from{transform:translateX(100%);opacity:0}to{transform:translateX(0);opacity:1}}
+
+/* ═══ VIEW MODES ═══ */
+[data-view="code"] .panel-preview,[data-view="code"] .resizer{display:none}
+[data-view="code"] .panel-code{width:100%}
+[data-view="preview"] .panel-code,[data-view="preview"] .resizer{display:none}
+[data-view="preview"] .panel-preview{width:100%}
+[data-view="split"] .panel-code{width:50%}
+
+/* ═══ EMPTY STATE ═══ */
+.empty-state{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;color:var(--text-dim);text-align:center;padding:40px;gap:12px;
+}
+.empty-state svg{width:48px;height:48px;opacity:.3}
+.empty-state p{font-size:14px;max-width:300px;line-height:1.6}
+.empty-state kbd{
+  padding:2px 8px;border:1px solid var(--border);border-radius:4px;
+  background:var(--bg-elevated);font-family:var(--font-code);font-size:11px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar{width:8px;height:8px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+::-webkit-scrollbar-thumb:hover{background:var(--border-hover)}
+
+/* ═══ CONTEXT MENU ═══ */
+.ctx-menu{
+  position:fixed;display:none;background:var(--bg-surface);border:1px solid var(--border);
+  border-radius:var(--radius);box-shadow:var(--shadow);padding:4px;z-index:99999;min-width:180px;
+}
+.ctx-menu.visible{display:block;animation:ftFadeIn .12s ease}
+.ctx-item{
+  display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:6px;
+  font-size:12.5px;cursor:pointer;color:var(--text);transition:var(--transition);border:none;
+  background:none;width:100%;text-align:left;font-family:var(--font-ui);
+}
+.ctx-item:hover{background:var(--accent-glow);color:var(--accent)}
+.ctx-item svg{width:14px;height:14px;color:var(--text-muted)}
+.ctx-item:hover svg{color:var(--accent)}
+
+/* Responsive */
+@media(max-width:768px){
+  .toolbar{gap:3px;padding:6px 8px}
+  .btn span.label{display:none}
+  .btn{padding:6px 8px}
 }
 </style>
 </head>
-<body>
+<body data-view="split">
 
-<!-- ═══════════ NAV ═══════════ -->
-<nav class="nav" id="nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo">Expert<span>Funnel</span></a>
-    <div class="nav-links">
-      <a href="#framework">Lộ trình</a>
-      <a href="#diff">Chuyên gia</a>
-      <a href="#testimonials">Review</a>
-      <a href="#faq">FAQs</a>
-    </div>
-    <a href="#cta" class="nav-cta">Đăng ký tư vấn</a>
+<!-- ═══ TOOLBAR ═══ -->
+<div class="toolbar">
+  <div class="toolbar-brand">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+    HTML Editor
   </div>
-</nav>
+  <div class="toolbar-sep"></div>
 
-<!-- ═══════════ HERO ═══════════ -->
-<section class="hero">
-  <div class="container hero-content">
-    <div class="hero-text">
-      <div class="hero-eyebrow">Mentor Program 2026</div>
-      <h1>Đóng gói chuyên môn.<br>Xây hệ thống <em>funnel</em> tự động.</h1>
-      <p class="hero-subtitle">Chương trình mentor đồng hành giúp chuyên gia, coach & trainer biến kiến thức thành sản phẩm — và xây hệ thống thu hút khách hàng tự động trong 8–12 tuần.</p>
-      <div class="hero-actions">
-        <a href="#cta" class="btn-primary">Đăng ký tư vấn 1:1 →</a>
-        <a href="#framework" class="btn-secondary">Xem lộ trình</a>
-      </div>
+  <button class="btn primary" onclick="loadHTML()" title="Tải HTML vào Preview">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span class="label">Tải Preview</span>
+  </button>
+  <button class="btn" onclick="getCode()" title="Lấy code HTML đã chỉnh sửa">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+    <span class="label">Lấy Code</span>
+  </button>
+  <button class="btn" onclick="exportFile()" title="Tải xuống file HTML">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <span class="label">Xuất File</span>
+  </button>
+
+  <div class="toolbar-sep"></div>
+
+  <button class="btn" onclick="showYouTubeModal()" title="Thêm video YouTube">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="4"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+    <span class="label">YouTube</span>
+  </button>
+  <button class="btn" onclick="showImageModal()" title="Thêm hình ảnh">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    <span class="label">Ảnh</span>
+  </button>
+  <button class="btn" onclick="showLinkModal()" title="Thêm liên kết">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+    <span class="label">Link</span>
+  </button>
+
+  <div class="toolbar-sep"></div>
+
+  <button class="btn" onclick="doUndo()" title="Hoàn tác (Ctrl+Z)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 102.13-9.36L1 10"/></svg>
+  </button>
+  <button class="btn" onclick="doRedo()" title="Làm lại (Ctrl+Y)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.13-9.36L23 10"/></svg>
+  </button>
+
+  <div class="toolbar-sep"></div>
+
+  <div class="btn-group">
+    <button class="btn" data-view-btn="code" onclick="setView('code')">Code</button>
+    <button class="btn active" data-view-btn="split" onclick="setView('split')">Chia đôi</button>
+    <button class="btn" data-view-btn="preview" onclick="setView('preview')">Preview</button>
+  </div>
+
+  <div class="toolbar-sep"></div>
+
+  <div class="btn-group">
+    <button class="btn active" data-resp-btn="desktop" onclick="setResponsive('desktop')" title="Desktop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+    </button>
+    <button class="btn" data-resp-btn="tablet" onclick="setResponsive('tablet')" title="Tablet">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+    </button>
+    <button class="btn" data-resp-btn="mobile" onclick="setResponsive('mobile')" title="Mobile">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div style="flex:1"></div>
+
+  <button class="btn" onclick="toggleTheme()" title="Đổi theme">
+    <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+  </button>
+</div>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main">
+  <!-- Code Panel -->
+  <div class="panel panel-code">
+    <div class="panel-header">
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        HTML Code
+      </span>
+      <span id="charCount" style="font-weight:400;text-transform:none;letter-spacing:0">0 ký tự</span>
     </div>
-    <div class="hero-visual">
-      <div class="hero-mockup">
-        <div class="hero-mockup-bar">
-          <div class="hero-mockup-dot"></div>
-          <div class="hero-mockup-dot"></div>
-          <div class="hero-mockup-dot"></div>
-        </div>
-        <div class="hero-mockup-body">
-          <svg class="funnel-svg" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- Funnel shape -->
-            <defs>
-              <linearGradient id="funnelGrad" x1="200" y1="20" x2="200" y2="260" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#007AFF" stop-opacity="0.15"/>
-                <stop offset="50%" stop-color="#AF52DE" stop-opacity="0.12"/>
-                <stop offset="100%" stop-color="#34C759" stop-opacity="0.1"/>
-              </linearGradient>
-              <linearGradient id="line1" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#007AFF"/>
-                <stop offset="100%" stop-color="#5856D6"/>
-              </linearGradient>
-              <linearGradient id="line2" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#AF52DE"/>
-                <stop offset="100%" stop-color="#FF9500"/>
-              </linearGradient>
-              <linearGradient id="line3" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stop-color="#34C759"/>
-                <stop offset="100%" stop-color="#30B0C7"/>
-              </linearGradient>
-            </defs>
-
-            <!-- Funnel body -->
-            <path d="M60 30 L340 30 L260 130 L260 200 L230 260 L170 260 L140 200 L140 130 Z" fill="url(#funnelGrad)" stroke="none"/>
-
-            <!-- Funnel stages - horizontal lines -->
-            <line x1="80" y1="65" x2="320" y2="65" stroke="url(#line1)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
-            <line x1="120" y1="105" x2="280" y2="105" stroke="url(#line2)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
-            <line x1="145" y1="160" x2="255" y2="160" stroke="url(#line3)" stroke-width="1.5" stroke-dasharray="4 3" opacity="0.6"/>
-
-            <!-- Stage labels -->
-            <text x="200" y="52" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" fill="#007AFF">TRAFFIC</text>
-            <text x="200" y="90" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" fill="#AF52DE">LEAD MAGNET</text>
-            <text x="200" y="140" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" fill="#FF9500">EMAIL NURTURE</text>
-            <text x="200" y="195" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" fill="#34C759">CONVERSION</text>
-
-            <!-- Animated dots flowing down -->
-            <circle r="4" fill="#007AFF" opacity="0.8">
-              <animateMotion dur="3s" repeatCount="indefinite" path="M200,25 Q200,80 200,130 Q200,180 200,250" />
-              <animate attributeName="r" values="4;3;2" dur="3s" repeatCount="indefinite"/>
-              <animate attributeName="opacity" values="0.9;0.6;0.3" dur="3s" repeatCount="indefinite"/>
-            </circle>
-            <circle r="3" fill="#AF52DE" opacity="0.7">
-              <animateMotion dur="3.5s" repeatCount="indefinite" path="M180,25 Q190,80 195,130 Q198,180 200,250" begin="0.8s"/>
-              <animate attributeName="r" values="3;2.5;1.5" dur="3.5s" repeatCount="indefinite" begin="0.8s"/>
-            </circle>
-            <circle r="3.5" fill="#34C759" opacity="0.7">
-              <animateMotion dur="4s" repeatCount="indefinite" path="M220,25 Q210,80 205,130 Q202,180 200,250" begin="1.5s"/>
-              <animate attributeName="r" values="3.5;2.5;2" dur="4s" repeatCount="indefinite" begin="1.5s"/>
-            </circle>
-
-            <!-- Bottom: money/result icon -->
-            <circle cx="200" cy="275" r="12" fill="#34C759" opacity="0.15"/>
-            <text x="200" y="280" text-anchor="middle" font-size="12">💰</text>
-
-            <!-- Side elements: people icons entering funnel -->
-            <g opacity="0.5">
-              <circle cx="40" cy="35" r="8" fill="#007AFF" opacity="0.2"/>
-              <text x="40" y="39" text-anchor="middle" font-size="10">👤</text>
-              <line x1="48" y1="35" x2="60" y2="35" stroke="#007AFF" stroke-width="1" stroke-dasharray="2 2" opacity="0.4"/>
-            </g>
-            <g opacity="0.5">
-              <circle cx="360" cy="35" r="8" fill="#007AFF" opacity="0.2"/>
-              <text x="360" y="39" text-anchor="middle" font-size="10">👤</text>
-              <line x1="352" y1="35" x2="340" y2="35" stroke="#007AFF" stroke-width="1" stroke-dasharray="2 2" opacity="0.4"/>
-            </g>
-            <g opacity="0.4">
-              <circle cx="25" cy="60" r="7" fill="#AF52DE" opacity="0.2"/>
-              <text x="25" y="64" text-anchor="middle" font-size="9">👤</text>
-            </g>
-            <g opacity="0.4">
-              <circle cx="375" cy="55" r="7" fill="#AF52DE" opacity="0.2"/>
-              <text x="375" y="59" text-anchor="middle" font-size="9">👤</text>
-            </g>
-          </svg>
-        </div>
-      </div>
-      <!-- Floating badges -->
-      <div class="hero-float f1">
-        <div class="hero-float-icon">📈</div>
-        <div>
-          <div style="font-size:12px;color:var(--secondary);">Lead mỗi ngày</div>
-          <div style="color:var(--green);">+320%</div>
-        </div>
-      </div>
-      <div class="hero-float f2">
-        <div class="hero-float-icon">🤖</div>
-        <div>
-          <div style="font-size:12px;color:var(--secondary);">AI Automation</div>
-          <div>Đang hoạt động</div>
-        </div>
-      </div>
-      <div class="hero-float f3">
-        <div class="hero-float-icon">💰</div>
-        <div>
-          <div style="font-size:12px;color:var(--secondary);">Doanh thu</div>
-          <div style="color:var(--green);">Tự động</div>
-        </div>
-      </div>
+    <div class="code-wrap">
+      <div class="line-numbers" id="lineNumbers">1</div>
+      <textarea id="codeEditor" placeholder="Dán code HTML vào đây...&#10;&#10;Sau đó nhấn nút &quot;Tải Preview&quot; để xem và chỉnh sửa trực quan." spellcheck="false"></textarea>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-number">8–12</div>
-        <div class="hero-stat-label">Tuần hoàn thành</div>
-      </div>
-      <div>
-        <div class="hero-stat-number">1:1</div>
-        <div class="hero-stat-label">Mentor trực tiếp</div>
-      </div>
-      <div>
-        <div class="hero-stat-number">5</div>
-        <div class="hero-stat-label">Giai đoạn triển khai</div>
-      </div>
-      <div>
-        <div class="hero-stat-number">AI</div>
-        <div class="hero-stat-label">Tự động hoá</div>
+  </div>
+
+  <!-- Resizer -->
+  <div class="resizer" id="resizer"></div>
+
+  <!-- Preview Panel -->
+  <div class="panel panel-preview">
+    <div class="panel-header">
+      <span>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        Preview
+      </span>
+      <span id="previewSize">100%</span>
+    </div>
+    <div class="preview-container">
+      <div class="preview-frame-wrap" id="previewWrap">
+        <div class="empty-state" id="emptyState">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          <p>Dán code HTML vào bên trái rồi nhấn <kbd>Tải Preview</kbd> để bắt đầu chỉnh sửa trực quan</p>
+        </div>
+        <iframe id="previewFrame" style="display:none"></iframe>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════ QUOTE BANNER ═══════════ -->
-<section class="quote-banner">
-  <div class="container">
-    <p class="quote-text reveal">Bạn không thiếu kiến thức.<br>Bạn chỉ thiếu một <span>hệ thống</span> để biến kiến thức thành tiền.</p>
-  </div>
-</section>
+<!-- ═══ FLOATING TOOLBAR ═══ -->
+<div class="float-toolbar" id="floatToolbar">
+  <select class="ft-select" id="ftFont" onchange="execCmd('fontName',this.value)" title="Phông chữ">
+    <option value="">— Phông —</option>
+    <option value="Arial">Arial</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Tahoma">Tahoma</option>
+    <option value="Trebuchet MS">Trebuchet MS</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Helvetica">Helvetica</option>
+    <option value="Palatino">Palatino</option>
+    <option value="Garamond">Garamond</option>
+    <option value="Comic Sans MS">Comic Sans MS</option>
+    <option value="Impact">Impact</option>
+  </select>
+  <select class="ft-select" id="ftSize" onchange="execFontSize(this.value)" title="Cỡ chữ" style="width:65px">
+    <option value="">— Cỡ —</option>
+    <option value="10px">10px</option>
+    <option value="12px">12px</option>
+    <option value="14px">14px</option>
+    <option value="16px">16px</option>
+    <option value="18px">18px</option>
+    <option value="20px">20px</option>
+    <option value="24px">24px</option>
+    <option value="28px">28px</option>
+    <option value="32px">32px</option>
+    <option value="36px">36px</option>
+    <option value="42px">42px</option>
+    <option value="48px">48px</option>
+    <option value="56px">56px</option>
+    <option value="64px">64px</option>
+    <option value="72px">72px</option>
+  </select>
+  <div class="ft-sep"></div>
+  <button class="ft-btn" onclick="execCmd('bold')" title="Đậm (B)"><b>B</b></button>
+  <button class="ft-btn" onclick="execCmd('italic')" title="Nghiêng (I)"><i>I</i></button>
+  <button class="ft-btn" onclick="execCmd('underline')" title="Gạch chân (U)"><u>U</u></button>
+  <button class="ft-btn" onclick="execCmd('strikeThrough')" title="Gạch ngang"><s>S</s></button>
+  <div class="ft-sep"></div>
+  <input type="color" class="ft-color" id="ftTextColor" value="#000000" oninput="execCmd('foreColor',this.value)" title="Màu chữ">
+  <input type="color" class="ft-color" id="ftBgColor" value="#ffffff" oninput="execCmd('hiliteColor',this.value)" title="Màu nền">
+  <div class="ft-sep"></div>
+  <button class="ft-btn" onclick="execCmd('justifyLeft')" title="Căn trái">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="17" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+  </button>
+  <button class="ft-btn" onclick="execCmd('justifyCenter')" title="Căn giữa">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="18" y1="14" x2="6" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+  </button>
+  <button class="ft-btn" onclick="execCmd('justifyRight')" title="Căn phải">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="7" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+  </button>
+  <button class="ft-btn" onclick="execCmd('justifyFull')" title="Căn đều">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="3" y2="18"/></svg>
+  </button>
+  <div class="ft-sep"></div>
+  <button class="ft-btn" onclick="showLinkModalFromSelection()" title="Thêm link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+  </button>
+  <button class="ft-btn" onclick="removeLink()" title="Bỏ link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><line x1="15" y1="3" x2="21" y2="9"/><line x1="21" y1="3" x2="15" y2="9"/></svg>
+  </button>
+</div>
 
-<!-- ═══════════ PROBLEMS ═══════════ -->
-<section class="problems" id="problems">
-  <div class="container">
-    <div class="problems-layout">
-      <div class="problems-left">
-        <div class="problems-header reveal">
-          <div class="section-label">Vấn đề</div>
-          <h2>Bạn có chuyên môn — nhưng đang mắc kẹt ở đâu?</h2>
-          <p>Hầu hết chuyên gia đều gặp những rào cản này trước khi có hệ thống rõ ràng.</p>
-        </div>
-        <div class="problems-grid">
-      <div class="problem-card reveal">
-        <div class="problem-icon">🧭</div>
-        <div class="problem-text">
-          <h3>Không biết bắt đầu từ đâu</h3>
-          <p>Muốn xây thương hiệu cá nhân nhưng không có lộ trình rõ ràng</p>
-        </div>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">📦</div>
-        <div class="problem-text">
-          <h3>Không biết đóng gói chuyên môn</h3>
-          <p>Có kiến thức sâu nhưng không biến được thành sản phẩm bán được</p>
-        </div>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">📱</div>
-        <div class="problem-text">
-          <h3>Làm content nhưng không ra khách</h3>
-          <p>Đăng bài đều đặn nhưng không có hệ thống chuyển đổi</p>
-        </div>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">📊</div>
-        <div class="problem-text">
-          <h3>Không có hệ thống thu lead</h3>
-          <p>Mất data khách hàng tiềm năng mỗi ngày vì không có funnel</p>
-        </div>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">🔄</div>
-        <div class="problem-text">
-          <h3>Bán hàng thủ công</h3>
-          <p>Không scale được vì mọi thứ phụ thuộc vào effort cá nhân</p>
-        </div>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-icon">🎯</div>
-        <div class="problem-text">
-          <h3>Phụ thuộc vào cảm hứng</h3>
-          <p>Không có quy trình chuẩn hoá, kết quả không nhất quán</p>
-        </div>
-      </div>
+<!-- ═══ CONTEXT MENU ═══ -->
+<div class="ctx-menu" id="ctxMenu">
+  <button class="ctx-item" onclick="ctxEditText()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+    Sửa nội dung
+  </button>
+  <button class="ctx-item" onclick="ctxChangeImg()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    Đổi hình ảnh
+  </button>
+  <button class="ctx-item" onclick="ctxEditLink()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+    Sửa link
+  </button>
+  <button class="ctx-item" onclick="ctxEditYT()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="4"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+    Đổi video YouTube
+  </button>
+  <button class="ctx-item" onclick="ctxInspect()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    Xem thông tin
+  </button>
+  <button class="ctx-item" onclick="ctxDelete()" style="color:var(--danger)">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+    Xoá phần tử
+  </button>
+</div>
+
+<!-- ═══ IMAGE MODAL ═══ -->
+<div class="modal-overlay" id="imgModal">
+  <div class="modal">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Hình ảnh
+    </h3>
+    <div class="img-preview-box" id="imgPreviewBox" onclick="document.getElementById('imgFileInput').click()">
+      <span id="imgPreviewText">Nhấn để chọn ảnh hoặc kéo thả vào đây</span>
+      <img id="imgPreviewImg" style="display:none">
     </div>
-      </div>
-      <!-- Illustration: Solo expert stuck -->
-      <div class="problems-illustration reveal">
-        <svg viewBox="0 0 400 450" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Desk -->
-          <rect x="80" y="280" width="240" height="8" rx="4" fill="#e5e5e7"/>
-          <rect x="100" y="288" width="8" height="80" rx="2" fill="#d1d1d6"/>
-          <rect x="292" y="288" width="8" height="80" rx="2" fill="#d1d1d6"/>
-
-          <!-- Laptop -->
-          <rect x="140" y="230" width="120" height="50" rx="6" fill="#2d2d30"/>
-          <rect x="146" y="236" width="108" height="38" rx="3" fill="#3a3a3c"/>
-          <!-- Screen glow -->
-          <rect x="146" y="236" width="108" height="38" rx="3" fill="url(#screenGlow)" opacity="0.5"/>
-          <rect x="110" y="280" width="180" height="4" rx="2" fill="#424245"/>
-
-          <!-- Person (female expert) -->
-          <!-- Hair -->
-          <ellipse cx="200" cy="145" rx="38" ry="42" fill="#2d2d30"/>
-          <path d="M162 155 Q162 120 200 105 Q238 120 238 155" fill="#2d2d30"/>
-          <!-- Long hair sides -->
-          <path d="M165 150 Q158 180 162 210 Q165 215 170 210 Q168 185 168 160 Z" fill="#2d2d30"/>
-          <path d="M235 150 Q242 180 238 210 Q235 215 230 210 Q232 185 232 160 Z" fill="#2d2d30"/>
-          <!-- Face -->
-          <ellipse cx="200" cy="155" rx="30" ry="32" fill="#F5D0B0"/>
-          <!-- Eyes (tired) -->
-          <path d="M188 152 Q190 150 194 152" stroke="#424245" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <path d="M206 152 Q208 150 212 152" stroke="#424245" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-          <!-- Slight frown -->
-          <path d="M193 168 Q200 165 207 168" stroke="#86868b" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <!-- Hand on chin (thinking) -->
-          <path d="M215 170 Q225 175 222 185 Q218 188 215 185" fill="#F5D0B0"/>
-
-          <!-- Body / Shirt -->
-          <path d="M170 188 Q170 200 168 230 L232 230 Q230 200 230 188 Q220 182 200 182 Q180 182 170 188 Z" fill="#007AFF" opacity="0.15"/>
-          <path d="M170 188 Q170 200 168 230 L232 230 Q230 200 230 188 Q220 182 200 182 Q180 182 170 188 Z" stroke="#007AFF" stroke-width="1.5" fill="none" opacity="0.3"/>
-
-          <!-- Arms on desk -->
-          <path d="M168 230 Q160 250 155 270 L170 275 Q172 258 178 240" fill="#F5D0B0"/>
-          <path d="M232 230 Q240 250 245 270 L230 275 Q228 258 222 240" fill="#F5D0B0"/>
-
-          <!-- Thought bubbles (confusion) -->
-          <circle cx="270" cy="120" r="5" fill="#e5e5e7"/>
-          <circle cx="280" cy="105" r="8" fill="#e5e5e7"/>
-          <rect x="285" y="70" width="100" height="50" rx="12" fill="#f5f5f7" stroke="#e5e5e7" stroke-width="1.5"/>
-          <text x="335" y="92" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="10" fill="#86868b">Bắt đầu từ đâu?</text>
-          <text x="335" y="106" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="10" fill="#86868b">Funnel là gì?</text>
-
-          <!-- Scattered papers -->
-          <rect x="100" y="245" width="30" height="22" rx="2" fill="#fff" stroke="#e5e5e7" transform="rotate(-8 115 256)"/>
-          <rect x="270" y="248" width="30" height="22" rx="2" fill="#fff" stroke="#e5e5e7" transform="rotate(5 285 259)"/>
-          <line x1="106" y1="252" x2="124" y2="250" stroke="#e5e5e7" stroke-width="1"/>
-          <line x1="106" y1="257" x2="120" y2="255" stroke="#e5e5e7" stroke-width="1"/>
-
-          <!-- Clock showing late -->
-          <circle cx="90" cy="200" r="18" fill="#fff" stroke="#e5e5e7" stroke-width="1.5"/>
-          <line x1="90" y1="200" x2="90" y2="188" stroke="#1d1d1f" stroke-width="1.5" stroke-linecap="round"/>
-          <line x1="90" y1="200" x2="100" y2="204" stroke="#FF3B30" stroke-width="1.2" stroke-linecap="round"/>
-          <circle cx="90" cy="200" r="2" fill="#1d1d1f"/>
-
-          <!-- Coffee cup -->
-          <rect x="300" y="258" width="18" height="22" rx="3" fill="#fff" stroke="#d1d1d6" stroke-width="1.5"/>
-          <path d="M318 264 Q326 264 326 272 Q326 280 318 280" stroke="#d1d1d6" stroke-width="1.5" fill="none"/>
-          <!-- Steam -->
-          <path d="M305 252 Q307 245 305 238" stroke="#d1d1d6" stroke-width="1" fill="none" opacity="0.5"/>
-          <path d="M312 250 Q314 243 312 236" stroke="#d1d1d6" stroke-width="1" fill="none" opacity="0.5"/>
-
-          <!-- X marks (frustration indicators) -->
-          <g opacity="0.3">
-            <line x1="120" y1="140" x2="130" y2="150" stroke="#FF3B30" stroke-width="2"/>
-            <line x1="130" y1="140" x2="120" y2="150" stroke="#FF3B30" stroke-width="2"/>
-          </g>
-
-          <!-- Caption -->
-          <text x="200" y="400" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="13" fill="#86868b" font-weight="500">"Mình có kiến thức... nhưng không biết</text>
-          <text x="200" y="418" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="13" fill="#86868b" font-weight="500">làm sao để có khách hàng."</text>
-
-          <defs>
-            <linearGradient id="screenGlow" x1="146" y1="236" x2="254" y2="274" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#007AFF" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#AF52DE" stop-opacity="0.1"/>
-            </linearGradient>
-          </defs>
-        </svg>
-      </div>
+    <input type="file" id="imgFileInput" accept="image/*" style="display:none" onchange="handleImgFile(this)">
+    <div class="field">
+      <label>Hoặc nhập URL ảnh</label>
+      <input type="url" id="imgUrlInput" placeholder="https://example.com/image.jpg">
+    </div>
+    <div class="field">
+      <label>Alt text (mô tả ảnh)</label>
+      <input type="text" id="imgAltInput" placeholder="Mô tả hình ảnh">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('imgModal')">Huỷ</button>
+      <button class="btn primary" onclick="applyImage()">Áp dụng</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════ OUTCOMES ═══════════ -->
-<section class="outcomes" id="outcomes">
-  <div class="outcomes-bg-pattern">
-    <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
-      <!-- Grid pattern -->
-      <defs>
-        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1d1d1f" stroke-width="0.5"/>
-        </pattern>
-      </defs>
-      <rect width="1200" height="800" fill="url(#grid)"/>
-      <!-- Funnel silhouette -->
-      <path d="M400 100 L800 100 L650 350 L650 500 L550 500 L550 350 Z" fill="#007AFF" opacity="0.08"/>
-      <!-- Circles -->
-      <circle cx="200" cy="200" r="80" fill="none" stroke="#34C759" stroke-width="1" opacity="0.15"/>
-      <circle cx="1000" cy="600" r="120" fill="none" stroke="#AF52DE" stroke-width="1" opacity="0.1"/>
-      <!-- Dots -->
-      <circle cx="300" cy="500" r="4" fill="#007AFF" opacity="0.2"/>
-      <circle cx="900" cy="300" r="4" fill="#34C759" opacity="0.2"/>
-      <circle cx="600" cy="700" r="3" fill="#FF9500" opacity="0.15"/>
-    </svg>
-  </div>
-  <div class="container">
-    <div class="outcomes-header reveal">
-      <div class="section-label" style="justify-content: center;">Kết quả cam kết</div>
-      <h2>Sau 8–12 tuần, bạn sẽ có trọn bộ hệ thống</h2>
-      <p>Không chỉ học lý thuyết — bạn sẽ có sản phẩm thật, funnel thật, và khách hàng thật.</p>
+<!-- ═══ YOUTUBE MODAL ═══ -->
+<div class="modal-overlay" id="ytModal">
+  <div class="modal">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="4"/><polygon points="10 8 16 12 10 16" fill="currentColor" stroke="none"/></svg>
+      Video YouTube
+    </h3>
+    <div class="field">
+      <label>Link YouTube</label>
+      <input type="url" id="ytUrlInput" placeholder="https://www.youtube.com/watch?v=... hoặc https://youtu.be/...">
     </div>
-    <div class="outcomes-grid">
-      <div class="outcome-card reveal">
-        <div class="outcome-card-visual">
-          <svg viewBox="0 0 28 28" fill="none"><circle cx="14" cy="10" r="5" stroke="#007AFF" stroke-width="2"/><path d="M6 24c0-4.4 3.6-8 8-8s8 3.6 8 8" stroke="#007AFF" stroke-width="2" stroke-linecap="round"/></svg>
-        </div>
-        <div class="outcome-number">01</div>
-        <h3>Bộ định vị cá nhân</h3>
-        <ul class="outcome-list">
-          <li>Chân dung khách hàng mục tiêu</li>
-          <li>Thông điệp cốt lõi</li>
-          <li>Hệ thống nội dung trụ cột</li>
-        </ul>
-      </div>
-      <div class="outcome-card reveal">
-        <div class="outcome-card-visual">
-          <svg viewBox="0 0 28 28" fill="none"><path d="M4 8h20v14a2 2 0 01-2 2H6a2 2 0 01-2-2V8z" stroke="#34C759" stroke-width="2"/><path d="M4 8l10 7 10-7" stroke="#34C759" stroke-width="2"/><rect x="8" y="3" width="12" height="5" rx="1" stroke="#34C759" stroke-width="1.5" stroke-dasharray="2 2"/></svg>
-        </div>
-        <div class="outcome-number">02</div>
-        <h3>Lead Magnet hoàn chỉnh</h3>
-        <ul class="outcome-list">
-          <li>Ebook / tài liệu / mini course</li>
-          <li>Giải quyết 1 vấn đề cụ thể</li>
-          <li>Sẵn sàng chạy ads hoặc organic</li>
-        </ul>
-      </div>
-      <div class="outcome-card reveal">
-        <div class="outcome-card-visual">
-          <svg viewBox="0 0 28 28" fill="none"><path d="M3 6h22l-4 8 4 8H3" stroke="#FF9500" stroke-width="2" stroke-linejoin="round"/><circle cx="14" cy="14" r="3" fill="#FF9500" opacity="0.3"/></svg>
-        </div>
-        <div class="outcome-number">03</div>
-        <h3>Funnel cơ bản</h3>
-        <ul class="outcome-list">
-          <li>Landing page chuyên nghiệp</li>
-          <li>Form thu lead + Email automation</li>
-          <li>Kịch bản chuyển đổi</li>
-        </ul>
-      </div>
-      <div class="outcome-card reveal">
-        <div class="outcome-card-visual">
-          <svg viewBox="0 0 28 28" fill="none"><rect x="3" y="6" width="22" height="16" rx="3" stroke="#AF52DE" stroke-width="2"/><path d="M11 14l2 2 4-4" stroke="#AF52DE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M3 11h22" stroke="#AF52DE" stroke-width="1.5" opacity="0.3"/></svg>
-        </div>
-        <div class="outcome-number">04</div>
-        <h3>Sản phẩm đầu tiên</h3>
-        <ul class="outcome-list">
-          <li>Khoá học / dịch vụ / coaching</li>
-          <li>Cấu trúc rõ ràng, bán được</li>
-          <li>Định giá & positioning</li>
-        </ul>
-      </div>
-      <div class="outcome-card reveal">
-        <div class="outcome-card-visual">
-          <svg viewBox="0 0 28 28" fill="none"><rect x="6" y="4" width="16" height="20" rx="2" stroke="#FF3B30" stroke-width="2"/><path d="M10 10h8M10 14h5" stroke="#FF3B30" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="20" r="6" fill="#FF3B30" opacity="0.12"/><path d="M18 20l1.5 1.5 3-3" stroke="#FF3B30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </div>
-        <div class="outcome-number">05</div>
-        <h3>Hệ thống AI hỗ trợ</h3>
-        <ul class="outcome-list">
-          <li>AI hỗ trợ viết content</li>
-          <li>AI viết email & landing page</li>
-          <li>Quy trình lặp lại được</li>
-        </ul>
-      </div>
+    <div class="field">
+      <label>Chiều rộng (px hoặc %)</label>
+      <input type="text" id="ytWidthInput" value="100%" placeholder="560 hoặc 100%">
+    </div>
+    <div class="field">
+      <label>Chiều cao (px)</label>
+      <input type="text" id="ytHeightInput" value="315" placeholder="315">
+    </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('ytModal')">Huỷ</button>
+      <button class="btn primary" onclick="applyYouTube()">Áp dụng</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════ TESTIMONIALS ═══════════ -->
-<section class="testimonials" id="testimonials">
-  <div class="container">
-    <div class="testimonials-header reveal">
-      <div class="section-label" style="justify-content: center;">Học viên chia sẻ</div>
-      <h2>Họ đã xây funnel thành công</h2>
-      <p>Những chuyên gia đã đi qua chương trình và có kết quả thật.</p>
+<!-- ═══ LINK MODAL ═══ -->
+<div class="modal-overlay" id="linkModal">
+  <div class="modal">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+      Liên kết
+    </h3>
+    <div class="field">
+      <label>URL</label>
+      <input type="url" id="linkUrlInput" placeholder="https://example.com">
     </div>
-    <div class="testimonials-grid">
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"Trước khi tham gia, mình có kiến thức chuyên môn nhưng không biết cách đóng gói. Sau 8 tuần, mình đã có ebook, landing page, và hệ thống email tự động. Tuần đầu tiên chạy funnel đã thu được 47 leads."</p>
-        <div class="testimonial-result">
-          <span class="testimonial-result-icon">📈</span>
-          <div class="testimonial-result-text">Từ 0 lead → <span>47 leads/tuần đầu tiên</span><br>Có ebook + funnel hoàn chỉnh</div>
-        </div>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">TL</div>
-          <div>
-            <div class="testimonial-name">Thanh Lan</div>
-            <div class="testimonial-role">Career Coach | HR Consultant</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"Mình là trainer nhưng thu nhập phụ thuộc hoàn toàn vào lớp offline. Giờ mình có sản phẩm số bán tự động, email nurture chạy 24/7. Doanh thu online chiếm 40% tổng thu nhập chỉ sau 3 tháng."</p>
-        <div class="testimonial-result">
-          <span class="testimonial-result-icon">💰</span>
-          <div class="testimonial-result-text">Doanh thu online: <span>40% tổng thu nhập</span><br>Email automation chạy tự động 24/7</div>
-        </div>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">MH</div>
-          <div>
-            <div class="testimonial-name">Minh Hoàng</div>
-            <div class="testimonial-role">Soft Skills Trainer | Speaker</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial-card reveal">
-        <div class="testimonial-stars">★★★★★</div>
-        <p class="testimonial-quote">"Điều mình thích nhất là được làm cùng, không phải chỉ nghe giảng. Mentor review từng bước, từ landing page đến email sequence. Giờ mình tự tin scale với AI mà không cần thuê thêm người."</p>
-        <div class="testimonial-result">
-          <span class="testimonial-result-icon">🤖</span>
-          <div class="testimonial-result-text">Scale với AI: <span>không cần thuê thêm</span><br>Hệ thống SOP chuẩn hoá hoàn toàn</div>
-        </div>
-        <div class="testimonial-author">
-          <div class="testimonial-avatar">PA</div>
-          <div>
-            <div class="testimonial-name">Phương Anh</div>
-            <div class="testimonial-role">Business Consultant | Mentor</div>
-          </div>
-        </div>
-      </div>
+    <div class="field">
+      <label>Text hiển thị (để trống nếu giữ nguyên)</label>
+      <input type="text" id="linkTextInput" placeholder="Text hiển thị">
     </div>
-
-    <!-- Video Testimonials -->
-    <div class="testimonials-video-header reveal">
-      <h3>Nghe họ chia sẻ trực tiếp</h3>
+    <div class="field">
+      <label>Mở trong</label>
+      <select id="linkTargetInput">
+        <option value="_blank">Tab mới (_blank)</option>
+        <option value="_self">Tab hiện tại (_self)</option>
+      </select>
     </div>
-    <div class="testimonials-videos">
-      <div class="video-card reveal">
-        <div class="video-placeholder" data-youtube="">
-          <div class="video-play-btn"></div>
-        </div>
-        <div class="video-card-info">
-          <div class="video-card-name">Thanh Lan — Career Coach</div>
-          <div class="video-card-desc">Từ 0 lead đến hệ thống funnel hoàn chỉnh</div>
-        </div>
-      </div>
-      <div class="video-card reveal">
-        <div class="video-placeholder" data-youtube="">
-          <div class="video-play-btn"></div>
-        </div>
-        <div class="video-card-info">
-          <div class="video-card-name">Minh Hoàng — Soft Skills Trainer</div>
-          <div class="video-card-desc">40% doanh thu online chỉ sau 3 tháng</div>
-        </div>
-      </div>
-      <div class="video-card reveal">
-        <div class="video-placeholder" data-youtube="">
-          <div class="video-play-btn"></div>
-        </div>
-        <div class="video-card-info">
-          <div class="video-card-name">Phương Anh — Business Consultant</div>
-          <div class="video-card-desc">Scale với AI không cần thuê thêm người</div>
-        </div>
-      </div>
+    <div class="modal-actions">
+      <button class="btn" onclick="closeModal('linkModal')">Huỷ</button>
+      <button class="btn primary" onclick="applyLink()">Áp dụng</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════ FRAMEWORK ═══════════ -->
-<section class="framework" id="framework">
-  <div class="container">
-    <div class="framework-header reveal">
-      <div class="section-label" style="justify-content: center;">Lộ trình 5 giai đoạn</div>
-      <h2>Framework triển khai từ 0 đến hệ thống hoàn chỉnh</h2>
-      <p>Mỗi giai đoạn được thiết kế để xây dựng nền tảng cho giai đoạn tiếp theo.</p>
-    </div>
-    <div class="timeline">
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
-        <div class="timeline-phase">Giai đoạn 1</div>
-        <h3 class="timeline-title">Định vị & Chiến lược</h3>
-        <ul class="timeline-tasks">
-          <li>Xác định chân dung khách hàng mục tiêu</li>
-          <li>Xác định niche & offer cốt lõi</li>
-          <li>Xây dựng thông điệp thương hiệu</li>
-        </ul>
-        <div class="timeline-success">
-          <div class="timeline-success-icon">🎯</div>
-          <div class="timeline-success-text"><strong>Kết quả:</strong> Bạn biết chính xác mình phục vụ ai, giải quyết vấn đề gì, và khác biệt ra sao.</div>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
-        <div class="timeline-phase">Giai đoạn 2</div>
-        <h3 class="timeline-title">Đóng gói chuyên môn</h3>
-        <ul class="timeline-tasks">
-          <li>Chọn chủ đề lead magnet phù hợp</li>
-          <li>Xây dựng outline chi tiết</li>
-          <li>Viết & hoàn thiện sản phẩm số</li>
-        </ul>
-        <div class="timeline-success">
-          <div class="timeline-success-icon">📦</div>
-          <div class="timeline-success-text"><strong>Kết quả:</strong> Ebook/tài liệu hoàn chỉnh sẵn sàng thu hút khách hàng tiềm năng.</div>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
-        <div class="timeline-phase">Giai đoạn 3</div>
-        <h3 class="timeline-title">Xây dựng Funnel</h3>
-        <ul class="timeline-tasks">
-          <li>Thiết kế landing page chuyên nghiệp</li>
-          <li>Cài đặt form + email automation</li>
-          <li>Xây kịch bản chuyển đổi</li>
-        </ul>
-        <div class="timeline-success">
-          <div class="timeline-success-icon">🚀</div>
-          <div class="timeline-success-text"><strong>Kết quả:</strong> Hệ thống funnel chạy tự động 24/7 — thu lead, nuôi dưỡng, chuyển đổi.</div>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
-        <div class="timeline-phase">Giai đoạn 4</div>
-        <h3 class="timeline-title">Content & Traffic</h3>
-        <ul class="timeline-tasks">
-          <li>Xây trụ cột nội dung</li>
-          <li>Hướng dẫn làm content viral (reels / post)</li>
-          <li>Kéo traffic vào funnel</li>
-        </ul>
-        <div class="timeline-success">
-          <div class="timeline-success-icon">📈</div>
-          <div class="timeline-success-text"><strong>Kết quả:</strong> Traffic đổ vào funnel đều đặn — organic lẫn paid, bạn có lead mỗi ngày.</div>
-        </div>
-      </div>
-      <div class="timeline-item reveal">
-        <div class="timeline-dot"><div class="timeline-dot-inner"></div></div>
-        <div class="timeline-phase">Giai đoạn 5</div>
-        <h3 class="timeline-title">Tối ưu & Scale</h3>
-        <ul class="timeline-tasks">
-          <li>Phân tích dữ liệu & metrics</li>
-          <li>Tối ưu tỷ lệ chuyển đổi</li>
-          <li>Chuẩn hoá thành SOP + AI Agent</li>
-        </ul>
-        <div class="timeline-success">
-          <div class="timeline-success-icon">🤖</div>
-          <div class="timeline-success-text"><strong>Kết quả:</strong> Toàn bộ hệ thống chạy ổn định, AI hỗ trợ — bạn chỉ cần tập trung chuyên môn.</div>
-        </div>
-      </div>
+<!-- ═══ INSPECT MODAL ═══ -->
+<div class="modal-overlay" id="inspectModal">
+  <div class="modal">
+    <h3>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Thông tin phần tử
+    </h3>
+    <div id="inspectContent" style="font-family:var(--font-code);font-size:12px;line-height:1.8;max-height:300px;overflow:auto;background:var(--bg-panel);padding:12px;border-radius:var(--radius);border:1px solid var(--border)"></div>
+    <div class="modal-actions">
+      <button class="btn primary" onclick="closeModal('inspectModal')">Đóng</button>
     </div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════ DIFFERENTIATORS ═══════════ -->
-<section class="diff" id="diff">
-  <div class="container">
-    <div class="diff-header reveal">
-      <div class="section-label" style="justify-content: center; color: rgba(255,255,255,0.35);">Điểm khác biệt</div>
-      <h2>Không chỉ dạy — làm cùng bạn đến khi ra kết quả</h2>
-      <p>Đây là chương trình Done-With-You, không phải khoá học online xem rồi bỏ.</p>
-    </div>
-    <!-- Mentor Intro -->
-    <div class="mentor-intro reveal">
-      <div class="mentor-avatar-wrapper">
-        <div class="mentor-avatar-large">D</div>
-        <div class="mentor-badge">Mentor</div>
-      </div>
-      <div class="mentor-info">
-        <h3>Đỗ Chí Dũng</h3>
-        <div class="mentor-title">Expert Funnel Builder | Business Strategist</div>
-        <p class="mentor-bio">Với kinh nghiệm đồng hành cùng hàng chục chuyên gia, coach & trainer xây dựng hệ thống funnel từ con số 0, anh Dũng giúp bạn không chỉ có kiến thức mà còn có hệ thống hoạt động thật — tạo ra khách hàng thật và doanh thu thật.</p>
-        <div class="mentor-stats">
-          <div class="mentor-stat"><strong>50+</strong> Mentee đã đồng hành</div>
-          <div class="mentor-stat"><strong>8+</strong> năm kinh nghiệm</div>
-          <div class="mentor-stat"><strong>AI</strong> + Funnel Expert</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mentor-Mentee Illustration -->
-    <div class="diff-illustration reveal">
-      <svg viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- Mentor figure -->
-        <circle cx="120" cy="60" r="28" fill="rgba(0,122,255,0.15)"/>
-        <circle cx="120" cy="52" r="14" fill="#F5D0B0"/>
-        <ellipse cx="120" cy="44" rx="16" ry="14" fill="#2d2d30"/>
-        <path d="M100 80 Q100 90 98 110 L142 110 Q140 90 140 80 Q130 74 120 74 Q110 74 100 80 Z" fill="rgba(0,122,255,0.3)"/>
-        <text x="120" y="135" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" fill="#fff">MENTOR</text>
-
-        <!-- Connection lines -->
-        <line x1="165" y1="80" x2="250" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="6 4"/>
-        <!-- Arrow -->
-        <path d="M245 80 L255 75 L255 85 Z" fill="rgba(0,122,255,0.5)"/>
-
-        <!-- Shared screen / working together -->
-        <rect x="260" y="40" width="100" height="80" rx="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
-        <!-- Screen content -->
-        <rect x="272" y="52" width="76" height="8" rx="2" fill="rgba(0,122,255,0.3)"/>
-        <rect x="272" y="66" width="50" height="6" rx="2" fill="rgba(255,255,255,0.1)"/>
-        <rect x="272" y="78" width="60" height="6" rx="2" fill="rgba(255,255,255,0.08)"/>
-        <rect x="272" y="90" width="76" height="14" rx="4" fill="rgba(52,199,89,0.2)"/>
-        <text x="310" y="100" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="8" fill="rgba(52,199,89,0.8)">FUNNEL LIVE</text>
-        <text x="310" y="135" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="10" fill="rgba(255,255,255,0.4)">Làm cùng — Review — Hoàn thiện</text>
-
-        <!-- Connection lines right -->
-        <line x1="370" y1="80" x2="440" y2="80" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="6 4"/>
-        <path d="M435 80 L445 75 L445 85 Z" fill="rgba(52,199,89,0.5)"/>
-
-        <!-- Mentee figure -->
-        <circle cx="490" cy="60" r="28" fill="rgba(52,199,89,0.15)"/>
-        <circle cx="490" cy="52" r="14" fill="#F5D0B0"/>
-        <ellipse cx="490" cy="44" rx="16" ry="14" fill="#2d2d30"/>
-        <path d="M490 42 Q484 38 478 44" fill="#2d2d30"/>
-        <path d="M490 42 Q496 38 502 44" fill="#2d2d30"/>
-        <path d="M470 80 Q470 90 468 110 L512 110 Q510 90 510 80 Q500 74 490 74 Q480 74 470 80 Z" fill="rgba(52,199,89,0.3)"/>
-        <text x="490" y="135" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="11" font-weight="600" fill="#fff">MENTEE</text>
-
-        <!-- Success sparkles around mentee -->
-        <text x="530" y="50" font-size="12" opacity="0.6">✨</text>
-        <text x="455" y="45" font-size="10" opacity="0.4">⭐</text>
-
-        <!-- Bottom label -->
-        <text x="300" y="170" text-anchor="middle" font-family="'Be Vietnam Pro', sans-serif" font-size="12" fill="rgba(255,255,255,0.3)">Done-With-You — Không bao giờ đi một mình</text>
-      </svg>
-    </div>
-
-    <div class="diff-grid">
-      <div class="diff-card reveal">
-        <span class="diff-card-icon">🤝</span>
-        <h3>Mentor đồng hành 1:1</h3>
-        <p>Không phải khoá học tự học. Bạn được hướng dẫn trực tiếp, review & feedback từng bước triển khai.</p>
-      </div>
-      <div class="diff-card reveal">
-        <span class="diff-card-icon">🎯</span>
-        <h3>Tập trung ra kết quả thật</h3>
-        <p>Mục tiêu là có sản phẩm thật, funnel thật, và khách hàng thật — không phải lý thuyết suông.</p>
-      </div>
-      <div class="diff-card reveal">
-        <span class="diff-card-icon">⚡</span>
-        <h3>Kết hợp Funnel + Content + AI</h3>
-        <p>Bộ 3 sức mạnh: hệ thống funnel tự động, nội dung thu hút, và AI giúp scale nhanh hơn.</p>
-      </div>
-      <div class="diff-card reveal">
-        <span class="diff-card-icon">🔧</span>
-        <h3>Hệ thống hoá mọi thứ</h3>
-        <p>Biến mọi quy trình thành SOP rõ ràng — không phụ thuộc cảm hứng, có thể lặp lại và scale.</p>
-      </div>
-    </div>
+<!-- ═══ STATUS BAR ═══ -->
+<div class="statusbar">
+  <div class="statusbar-left">
+    <span class="status-tag" id="statusMode">Sẵn sàng</span>
+    <span id="elementPath">—</span>
   </div>
-</section>
-
-<!-- ═══════════ AUDIENCE ═══════════ -->
-<section class="audience" id="audience">
-  <div class="container">
-    <div class="audience-header reveal">
-      <div class="section-label" style="justify-content: center;">Đối tượng</div>
-      <h2>Chương trình này có phù hợp với bạn?</h2>
-    </div>
-    <div class="audience-columns">
-      <div class="audience-col yes reveal">
-        <h3>Phù hợp</h3>
-        <ul class="audience-list">
-          <li>Solo Expert: coach, trainer, freelancer, consultant</li>
-          <li>Chủ business nhỏ muốn build thương hiệu cá nhân</li>
-          <li>Có chuyên môn nhưng chưa biết đóng gói thành sản phẩm</li>
-          <li>Chưa có hệ thống marketing ổn định</li>
-          <li>Đang phụ thuộc vào khách hàng giới thiệu</li>
-        </ul>
-      </div>
-      <div class="audience-col no reveal">
-        <h3>Không phù hợp</h3>
-        <ul class="audience-list">
-          <li>Chưa có chuyên môn rõ ràng trong lĩnh vực nào</li>
-          <li>Muốn làm nhanh — kiếm tiền ngay — không chịu làm</li>
-          <li>Không sẵn sàng học hỏi & triển khai nghiêm túc</li>
-        </ul>
-      </div>
-    </div>
+  <div class="statusbar-right">
+    <span id="statusInfo">Dán HTML → Tải Preview → Chỉnh sửa trực quan</span>
   </div>
-</section>
+</div>
 
-<!-- ═══════════ RESOURCES ═══════════ -->
-<section class="resources">
-  <div class="container">
-    <div class="resources-header reveal">
-      <div class="section-label" style="justify-content: center;">Tài nguyên</div>
-      <h2>Bạn sẽ nhận được gì?</h2>
-      <p>Trọn bộ tài liệu, template & công cụ để triển khai ngay.</p>
-    </div>
-    <div class="resources-list">
-      <div class="resource-item reveal">
-        <div class="resource-icon">📘</div>
-        <h4>Playbook</h4>
-        <p>Expert Funnel Builder</p>
-      </div>
-      <div class="resource-item reveal">
-        <div class="resource-icon">📄</div>
-        <h4>Template</h4>
-        <p>Landing, Email, Content</p>
-      </div>
-      <div class="resource-item reveal">
-        <div class="resource-icon">✅</div>
-        <h4>Checklist</h4>
-        <p>Triển khai từng bước</p>
-      </div>
-      <div class="resource-item reveal">
-        <div class="resource-icon">🤖</div>
-        <h4>Prompt AI</h4>
-        <p>Sẵn dùng ngay</p>
-      </div>
-      <div class="resource-item reveal">
-        <div class="resource-icon">🎥</div>
-        <h4>Video Record</h4>
-        <p>Xem lại bất cứ lúc nào</p>
-      </div>
-      <div class="resource-item reveal">
-        <div class="resource-icon">💬</div>
-        <h4>Hỗ trợ Async</h4>
-        <p>Chat trực tiếp với mentor</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ PROCESS ═══════════ -->
-<section class="process">
-  <div class="container">
-    <div class="process-header reveal">
-      <div class="section-label" style="justify-content: center;">Quy trình</div>
-      <h2>Bắt đầu chỉ với 5 bước</h2>
-    </div>
-    <div class="process-steps reveal">
-      <div class="process-step">
-        <div class="process-step-number">1</div>
-        <h4>Điền form</h4>
-        <p>Khảo sát nhanh</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-number">2</div>
-        <h4>Phân tích</h4>
-        <p>Đánh giá hiện trạng</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-number">3</div>
-        <h4>Strategy Call</h4>
-        <p>Gọi tư vấn chiến lược</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-number">4</div>
-        <h4>Xác nhận</h4>
-        <p>Đảm bảo phù hợp</p>
-      </div>
-      <div class="process-step">
-        <div class="process-step-number">5</div>
-        <h4>Bắt đầu</h4>
-        <p>Khởi động chương trình</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ FAQ ═══════════ -->
-<section class="faq" id="faq">
-  <div class="container">
-    <div class="faq-header reveal">
-      <div class="section-label" style="justify-content: center;">Câu hỏi thường gặp</div>
-      <h2>Giải đáp thắc mắc</h2>
-    </div>
-    <div class="faq-list">
-      <div class="faq-item reveal">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <h3>Tôi chưa có content, có tham gia được không?</h3>
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Hoàn toàn được. Chương trình hướng dẫn từ đầu — từ định vị, chọn niche, đến xây dựng nội dung trụ cột. Bạn sẽ được hướng dẫn step-by-step.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <h3>Tôi không rành kỹ thuật, có làm được không?</h3>
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Có. Bạn sẽ nhận được template có sẵn, hướng dẫn chi tiết từng bước, và có AI hỗ trợ. Mentor sẽ đồng hành trực tiếp trong quá trình setup.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <h3>Bao lâu thì có kết quả?</h3>
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Thông thường 4–8 tuần bạn sẽ bắt đầu có lead và sản phẩm đầu tiên. Toàn bộ hệ thống hoàn chỉnh trong 8–12 tuần tuỳ theo tốc độ triển khai.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <h3>Hình thức học như thế nào?</h3>
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Mentor 1:1 qua Zoom, 2 buổi/tuần. Có tài liệu & video record để xem lại. Bài tập thực hành mỗi tuần. Hỗ trợ async qua chat giữa các buổi.</p>
-        </div>
-      </div>
-      <div class="faq-item reveal">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          <h3>Chương trình khác gì khoá học online?</h3>
-          <span class="faq-toggle">+</span>
-        </button>
-        <div class="faq-answer">
-          <p>Đây là Done-With-You — mentor làm cùng bạn, review & feedback trực tiếp. Không phải khoá học tự học xem video rồi bỏ. Mục tiêu là ra kết quả thật, không phải chỉ học lý thuyết.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ CTA ═══════════ -->
-<section class="cta-section" id="cta">
-  <div class="container">
-    <div class="cta-content reveal">
-      <h2>Sẵn sàng xây hệ thống <em>của riêng bạn?</em></h2>
-      <p>Đăng ký tư vấn 1:1 miễn phí để nhận roadmap cá nhân hoá phù hợp với chuyên môn và mục tiêu của bạn.</p>
-      <div class="cta-features">
-        <span class="cta-feature">Tư vấn miễn phí</span>
-        <span class="cta-feature">Roadmap cá nhân hoá</span>
-        <span class="cta-feature">Không cam kết</span>
-      </div>
-      <a href="#" class="cta-btn"><span>Đăng ký tư vấn ngay →</span></a>
-      <p class="cta-note">Chỉ nhận tối đa 5 mentee mỗi tháng để đảm bảo chất lượng đồng hành.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════ FOOTER ═══════════ -->
-<footer class="footer">
-  <div class="container">
-    <p>© 2026 Expert Funnel Builder. All rights reserved.</p>
-  </div>
-</footer>
+<!-- ═══ TOAST CONTAINER ═══ -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
-// Nav scroll effect
-const nav = document.getElementById('nav');
-let lastScroll = 0;
+// ═══════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════
+let undoStack = [], redoStack = [], currentHTML = '';
+let ctxTarget = null, editingTarget = null, savedRange = null;
+let imageTarget = null, ytTarget = null;
+let isDragging = false;
 
-window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  nav.classList.toggle('scrolled', scrollY > 60);
-  lastScroll = scrollY;
-}, { passive: true });
+// ═══════════════════════════════════════
+//  HELPERS
+// ═══════════════════════════════════════
+function $(id){ return document.getElementById(id) }
+function toast(msg, type='success'){
+  const t = document.createElement('div');
+  t.className = 'toast ' + type;
+  t.innerHTML = (type==='success'?'✓':type==='error'?'✗':'ℹ') + '&nbsp;&nbsp;' + msg;
+  $('toastContainer').appendChild(t);
+  setTimeout(()=>{ t.style.transition='all .3s'; t.style.opacity='0'; t.style.transform='translateX(100%)'; setTimeout(()=>t.remove(),300) },2500);
+}
+function closeModal(id){ $(id).classList.remove('visible'); $(id).style.display='none' }
+function openModal(id){ $(id).style.display='flex'; requestAnimationFrame(()=> $(id).classList.add('visible')) }
+function getPreviewDoc(){ try{ return $('previewFrame').contentDocument || $('previewFrame').contentWindow.document }catch(e){return null} }
 
-// Reveal on scroll
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, i) => {
-    if (entry.isIntersecting) {
-      const delay = Array.from(entry.target.parentElement?.children || [])
-        .filter(c => c.classList.contains('reveal'))
-        .indexOf(entry.target);
-      entry.target.style.transitionDelay = `${Math.max(0, delay) * 80}ms`;
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+// ═══════════════════════════════════════
+//  CODE EDITOR
+// ═══════════════════════════════════════
+const editor = $('codeEditor');
+const lineNums = $('lineNumbers');
 
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-// FAQ toggle
-function toggleFaq(btn) {
-  const item = btn.closest('.faq-item');
-  const wasOpen = item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-  if (!wasOpen) item.classList.add('open');
+function updateLineNumbers(){
+  const lines = editor.value.split('\n').length;
+  let html = '';
+  for(let i=1;i<=lines;i++) html += i + '\n';
+  lineNums.textContent = html;
+  $('charCount').textContent = editor.value.length.toLocaleString() + ' ký tự';
 }
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+editor.addEventListener('input', updateLineNumbers);
+editor.addEventListener('scroll', function(){ lineNums.scrollTop = this.scrollTop });
+editor.addEventListener('keydown', function(e){
+  if(e.key === 'Tab'){
+    e.preventDefault();
+    const start = this.selectionStart, end = this.selectionEnd;
+    this.value = this.value.substring(0,start) + '  ' + this.value.substring(end);
+    this.selectionStart = this.selectionEnd = start + 2;
+    updateLineNumbers();
+  }
+});
+
+// ═══════════════════════════════════════
+//  LOAD HTML INTO PREVIEW
+// ═══════════════════════════════════════
+function loadHTML(){
+  const code = editor.value.trim();
+  if(!code){ toast('Chưa có code HTML để tải','error'); return }
+
+  pushUndo();
+  currentHTML = code;
+
+  $('emptyState').style.display = 'none';
+  const frame = $('previewFrame');
+  frame.style.display = 'block';
+
+  const doc = frame.contentDocument || frame.contentWindow.document;
+  doc.open();
+  doc.write(code);
+  doc.close();
+
+  // Wait for content to load then attach handlers
+  setTimeout(()=> setupPreviewInteractions(), 200);
+
+  $('statusMode').textContent = 'Đang chỉnh sửa';
+  toast('Đã tải HTML vào Preview');
+}
+
+// ═══════════════════════════════════════
+//  PREVIEW INTERACTIONS
+// ═══════════════════════════════════════
+function setupPreviewInteractions(){
+  const doc = getPreviewDoc();
+  if(!doc) return;
+
+  // Inject editing styles
+  const style = doc.createElement('style');
+  style.textContent = `
+    .editor-highlight{outline:2px solid rgba(34,211,167,.5)!important;outline-offset:2px}
+    .editor-editing{outline:2px solid #22d3a7!important;outline-offset:2px;min-height:1em}
+    .editor-img-highlight{outline:2px solid #4799f0!important;outline-offset:2px;cursor:pointer}
+    [contenteditable="true"]:focus{outline:2px solid #22d3a7!important;outline-offset:2px}
+    *{cursor:default}
+    a,button,[role="button"]{cursor:pointer}
+    img{cursor:pointer}
+    iframe{pointer-events:auto}
+  `;
+  doc.head.appendChild(style);
+
+  // Mouse move - highlight
+  doc.addEventListener('mouseover', function(e){
+    if(editingTarget) return;
+    doc.querySelectorAll('.editor-highlight,.editor-img-highlight').forEach(el=>{
+      el.classList.remove('editor-highlight','editor-img-highlight');
+    });
+    if(e.target === doc.body || e.target === doc.documentElement) return;
+    if(e.target.tagName === 'IMG') e.target.classList.add('editor-img-highlight');
+    else e.target.classList.add('editor-highlight');
+
+    // Update element path in statusbar
+    updateElementPath(e.target);
+  });
+
+  // Click handler
+  doc.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    const el = e.target;
+
+    // Image click
+    if(el.tagName === 'IMG'){
+      imageTarget = el;
+      $('imgUrlInput').value = el.src || '';
+      $('imgAltInput').value = el.alt || '';
+      $('imgPreviewImg').src = el.src || '';
+      $('imgPreviewImg').style.display = el.src ? 'block' : 'none';
+      $('imgPreviewText').style.display = el.src ? 'none' : 'block';
+      scrollCodeToElement(el);
+      openModal('imgModal');
+      return;
+    }
+
+    // YouTube iframe click
+    if(el.tagName === 'IFRAME' && el.src && el.src.includes('youtube')){
+      ytTarget = el;
+      const match = el.src.match(/embed\/([^?&#]+)/);
+      $('ytUrlInput').value = match ? 'https://www.youtube.com/watch?v=' + match[1] : el.src;
+      $('ytWidthInput').value = el.width || el.style.width || '100%';
+      $('ytHeightInput').value = el.height || el.style.height || '315';
+      scrollCodeToElement(el);
+      openModal('ytModal');
+      return;
+    }
+
+    // Text element - make editable
+    const editableTags = ['H1','H2','H3','H4','H5','H6','P','SPAN','A','BUTTON','LI','TD','TH','LABEL','STRONG','EM','B','I','U','SMALL','BLOCKQUOTE','FIGCAPTION','DIV'];
+    if(editableTags.includes(el.tagName) || el.closest && editableTags.some(t => el.tagName === t)){
+      startEditing(el);
     }
   });
-});
-</script>
 
+  // Right click - context menu
+  doc.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+    ctxTarget = e.target;
+    showContextMenu(e);
+  });
+
+  // Selection change - show floating toolbar
+  doc.addEventListener('mouseup', function(e){
+    setTimeout(()=>{
+      const sel = doc.getSelection();
+      if(sel && sel.toString().trim().length > 0 && editingTarget){
+        showFloatToolbar(e);
+        savedRange = sel.getRangeAt(0);
+      }
+    }, 50);
+  });
+
+  // Click outside editing element
+  doc.addEventListener('mousedown', function(e){
+    if(editingTarget && e.target !== editingTarget && !editingTarget.contains(e.target)){
+      stopEditing();
+    }
+  });
+
+  // Handle drag-drop images
+  doc.addEventListener('dragover', function(e){ e.preventDefault() });
+  doc.addEventListener('drop', function(e){
+    e.preventDefault();
+    const files = e.dataTransfer.files;
+    if(files.length && files[0].type.startsWith('image/')){
+      const img = e.target.closest('img') || e.target;
+      if(img.tagName === 'IMG'){
+        imageTarget = img;
+        handleDroppedImage(files[0]);
+      }
+    }
+  });
+}
+
+function startEditing(el){
+  if(editingTarget) stopEditing();
+  pushUndo();
+  editingTarget = el;
+  el.contentEditable = 'true';
+  el.classList.add('editor-editing');
+  el.focus();
+  $('statusMode').textContent = 'Đang sửa text';
+  scrollCodeToElement(el);
+}
+
+// ═══════════════════════════════════════
+//  SCROLL CODE TO ELEMENT
+// ═══════════════════════════════════════
+function scrollCodeToElement(el){
+  if(!el) return;
+  const code = editor.value;
+  const tag = el.tagName.toLowerCase();
+  const text = el.textContent.trim();
+
+  // Build search candidates to find the element in source code
+  let searchPatterns = [];
+
+  // 1. Try matching by id
+  if(el.id){
+    searchPatterns.push('id="' + el.id + '"');
+  }
+
+  // 2. Try matching by unique class (skip editor classes)
+  const origClass = (el.getAttribute('class') || '').replace(/editor-[a-z-]+/g,'').trim();
+  if(origClass){
+    searchPatterns.push('class="' + origClass + '"');
+    // Also try partial class match (first class name)
+    const firstClass = origClass.split(/\s+/)[0];
+    if(firstClass) searchPatterns.push('class="' + firstClass);
+  }
+
+  // 3. Try matching by tag + text content (first 40 chars)
+  if(text.length > 0){
+    const snippet = text.substring(0, 40).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    searchPatterns.push(snippet);
+  }
+
+  // 4. Try matching opening tag with attributes
+  if(el.tagName === 'IMG' && el.getAttribute('src')){
+    const src = el.getAttribute('src').substring(0, 60);
+    searchPatterns.push(src);
+  }
+  if(el.tagName === 'A' && el.getAttribute('href')){
+    searchPatterns.push('href="' + el.getAttribute('href'));
+  }
+
+  // Search through patterns, find best match
+  let bestPos = -1;
+  for(const pattern of searchPatterns){
+    if(!pattern || pattern.length < 3) continue;
+    const idx = code.indexOf(pattern);
+    if(idx !== -1){
+      bestPos = idx;
+      break;
+    }
+    // Try case-insensitive
+    const idxLower = code.toLowerCase().indexOf(pattern.toLowerCase());
+    if(idxLower !== -1){
+      bestPos = idxLower;
+      break;
+    }
+  }
+
+  if(bestPos === -1) return;
+
+  // Calculate line number from position
+  const linesBeforeMatch = code.substring(0, bestPos).split('\n').length;
+  const lineHeight = parseFloat(getComputedStyle(editor).lineHeight) || 19.2;
+
+  // Scroll code editor to that line (center it)
+  const scrollTarget = (linesBeforeMatch - 1) * lineHeight - editor.clientHeight / 3;
+  editor.scrollTop = Math.max(0, scrollTarget);
+  lineNums.scrollTop = editor.scrollTop;
+
+  // Also set cursor position in editor
+  editor.setSelectionRange(bestPos, bestPos);
+
+  // Highlight the line briefly
+  highlightCodeLine(linesBeforeMatch);
+}
+
+function highlightCodeLine(lineNum){
+  // Flash the line number to indicate which line
+  const nums = lineNums.textContent.split('\n');
+  // Create a visual indicator by temporarily styling
+  const lineHeight = parseFloat(getComputedStyle(editor).lineHeight) || 19.2;
+  const topOffset = (lineNum - 1) * lineHeight - editor.scrollTop;
+
+  // Create highlight overlay
+  let hl = document.getElementById('codeHighlight');
+  if(!hl){
+    hl = document.createElement('div');
+    hl.id = 'codeHighlight';
+    hl.style.cssText = 'position:absolute;left:0;right:0;height:' + lineHeight + 'px;background:var(--accent-glow);border-left:3px solid var(--accent);pointer-events:none;transition:opacity .6s;z-index:5;';
+    document.querySelector('.code-wrap').appendChild(hl);
+  }
+  hl.style.top = (topOffset + 12) + 'px'; // 12px = padding-top of editor
+  hl.style.opacity = '1';
+  hl.style.height = lineHeight + 'px';
+  setTimeout(()=>{ hl.style.opacity = '0' }, 1500);
+}
+
+function stopEditing(){
+  if(!editingTarget) return;
+  editingTarget.contentEditable = 'false';
+  editingTarget.classList.remove('editor-editing');
+  editingTarget = null;
+  hideFloatToolbar();
+  syncCodeFromPreview();
+  $('statusMode').textContent = 'Đang chỉnh sửa';
+}
+
+// ═══════════════════════════════════════
+//  FLOATING TOOLBAR
+// ═══════════════════════════════════════
+function showFloatToolbar(e){
+  const ft = $('floatToolbar');
+  const doc = getPreviewDoc();
+  if(!doc) return;
+  const sel = doc.getSelection();
+  if(!sel.rangeCount) return;
+
+  const range = sel.getRangeAt(0);
+  const rect = range.getBoundingClientRect();
+  const frameRect = $('previewFrame').getBoundingClientRect();
+
+  const ftHeight = ft.offsetHeight || 44;
+  let left = frameRect.left + rect.left + rect.width/2 - 260;
+  let top = frameRect.top + rect.top - ftHeight - 12;
+
+  if(left < 8) left = 8;
+  if(left + 520 > window.innerWidth) left = window.innerWidth - 530;
+  // If toolbar would go above viewport or behind main toolbar, show below selection instead
+  if(top < 56) top = frameRect.top + rect.bottom + 10;
+
+  ft.style.left = left + 'px';
+  ft.style.top = top + 'px';
+  ft.classList.add('visible');
+}
+
+function hideFloatToolbar(){
+  $('floatToolbar').classList.remove('visible');
+}
+
+// ═══════════════════════════════════════
+//  EXEC COMMANDS (on preview iframe)
+// ═══════════════════════════════════════
+function execCmd(cmd, val){
+  const doc = getPreviewDoc();
+  if(!doc) return;
+
+  // Restore selection if needed
+  if(savedRange){
+    const sel = doc.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+  }
+
+  doc.execCommand(cmd, false, val || null);
+  syncCodeFromPreview();
+}
+
+function execFontSize(size){
+  const doc = getPreviewDoc();
+  if(!doc || !size) return;
+
+  if(savedRange){
+    const sel = doc.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+  }
+
+  // Use fontSize command with a temporary value, then replace
+  doc.execCommand('fontSize', false, '7');
+  const fontEls = doc.querySelectorAll('font[size="7"]');
+  fontEls.forEach(el => {
+    el.removeAttribute('size');
+    el.style.fontSize = size;
+  });
+  // Also handle spans
+  const spans = doc.querySelectorAll('span[style*="xxx-large"]');
+  spans.forEach(el => { el.style.fontSize = size });
+
+  syncCodeFromPreview();
+}
+
+// ═══════════════════════════════════════
+//  CONTEXT MENU
+// ═══════════════════════════════════════
+function showContextMenu(e){
+  const menu = $('ctxMenu');
+  const frameRect = $('previewFrame').getBoundingClientRect();
+  let left = frameRect.left + e.clientX;
+  let top = frameRect.top + e.clientY;
+
+  if(left + 200 > window.innerWidth) left = window.innerWidth - 210;
+  if(top + 250 > window.innerHeight) top = window.innerHeight - 260;
+
+  menu.style.left = left + 'px';
+  menu.style.top = top + 'px';
+  menu.classList.add('visible');
+
+  // Show/hide relevant items based on target
+  const items = menu.querySelectorAll('.ctx-item');
+  items[1].style.display = ctxTarget.tagName === 'IMG' ? 'flex' : 'none'; // Change image
+  items[3].style.display = (ctxTarget.tagName === 'IFRAME' && ctxTarget.src && ctxTarget.src.includes('youtube')) ? 'flex' : 'none'; // YouTube
+  items[2].style.display = (ctxTarget.tagName === 'A' || ctxTarget.closest('a')) ? 'flex' : 'none'; // Edit link
+}
+
+document.addEventListener('click', function(){ $('ctxMenu').classList.remove('visible') });
+document.addEventListener('contextmenu', function(e){
+  if(!e.target.closest('.ctx-menu')) $('ctxMenu').classList.remove('visible');
+});
+
+function ctxEditText(){
+  if(ctxTarget) startEditing(ctxTarget);
+}
+function ctxChangeImg(){
+  if(ctxTarget && ctxTarget.tagName === 'IMG'){
+    imageTarget = ctxTarget;
+    $('imgUrlInput').value = ctxTarget.src || '';
+    $('imgAltInput').value = ctxTarget.alt || '';
+    openModal('imgModal');
+  }
+}
+function ctxEditLink(){
+  const link = ctxTarget.tagName === 'A' ? ctxTarget : ctxTarget.closest('a');
+  if(link){
+    $('linkUrlInput').value = link.href || '';
+    $('linkTextInput').value = link.textContent || '';
+    $('linkTargetInput').value = link.target || '_blank';
+    editingTarget = link;
+    openModal('linkModal');
+  }
+}
+function ctxEditYT(){
+  if(ctxTarget.tagName === 'IFRAME'){
+    ytTarget = ctxTarget;
+    const match = ctxTarget.src.match(/embed\/([^?&#]+)/);
+    $('ytUrlInput').value = match ? 'https://www.youtube.com/watch?v=' + match[1] : '';
+    openModal('ytModal');
+  }
+}
+function ctxInspect(){
+  if(!ctxTarget) return;
+  const el = ctxTarget;
+  const computed = el.ownerDocument.defaultView.getComputedStyle(el);
+  const rect = el.getBoundingClientRect();
+  let html = `
+    <div style="margin-bottom:8px"><strong style="color:var(--accent)">&lt;${el.tagName.toLowerCase()}&gt;</strong></div>
+    <div>ID: <span style="color:var(--info)">${el.id || '—'}</span></div>
+    <div>Class: <span style="color:var(--warning)">${el.className || '—'}</span></div>
+    <div>Kích thước: ${Math.round(rect.width)} × ${Math.round(rect.height)}px</div>
+    <div>Font: ${computed.fontFamily}</div>
+    <div>Cỡ chữ: ${computed.fontSize}</div>
+    <div>Màu chữ: <span style="color:${computed.color}">${computed.color}</span></div>
+    <div>Nền: <span style="background:${computed.backgroundColor};padding:0 8px;border-radius:3px">${computed.backgroundColor}</span></div>
+    <div>Margin: ${computed.margin}</div>
+    <div>Padding: ${computed.padding}</div>
+  `;
+  if(el.tagName === 'A') html += `<div>Href: <span style="color:var(--info)">${el.href || '—'}</span></div>`;
+  if(el.tagName === 'IMG') html += `<div>Src: <span style="color:var(--info);word-break:break-all">${el.src?.substring(0,100) || '—'}</span></div>`;
+  $('inspectContent').innerHTML = html;
+  openModal('inspectModal');
+}
+function ctxDelete(){
+  if(!ctxTarget || ctxTarget === getPreviewDoc().body) return;
+  pushUndo();
+  ctxTarget.remove();
+  syncCodeFromPreview();
+  toast('Đã xoá phần tử');
+}
+
+// ═══════════════════════════════════════
+//  IMAGE HANDLING
+// ═══════════════════════════════════════
+function showImageModal(){
+  imageTarget = null;
+  $('imgUrlInput').value = '';
+  $('imgAltInput').value = '';
+  $('imgPreviewImg').style.display = 'none';
+  $('imgPreviewText').style.display = 'block';
+  $('imgFileInput').value = '';
+  openModal('imgModal');
+}
+
+function handleImgFile(input){
+  if(!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    $('imgPreviewImg').src = e.target.result;
+    $('imgPreviewImg').style.display = 'block';
+    $('imgPreviewText').style.display = 'none';
+    $('imgUrlInput').value = '';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function handleDroppedImage(file){
+  const reader = new FileReader();
+  reader.onload = function(e){
+    if(imageTarget){
+      pushUndo();
+      imageTarget.src = e.target.result;
+      syncCodeFromPreview();
+      toast('Đã cập nhật ảnh');
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+// Drag & drop on modal
+$('imgPreviewBox').addEventListener('dragover', e=>{ e.preventDefault(); e.currentTarget.style.borderColor='var(--accent)' });
+$('imgPreviewBox').addEventListener('dragleave', e=>{ e.currentTarget.style.borderColor='' });
+$('imgPreviewBox').addEventListener('drop', function(e){
+  e.preventDefault();
+  this.style.borderColor='';
+  if(e.dataTransfer.files[0]){
+    $('imgFileInput').files = e.dataTransfer.files;
+    handleImgFile($('imgFileInput'));
+  }
+});
+
+function applyImage(){
+  const doc = getPreviewDoc();
+  if(!doc){ toast('Chưa tải HTML','error'); return }
+
+  pushUndo();
+  const src = $('imgPreviewImg').style.display !== 'none' ? $('imgPreviewImg').src : $('imgUrlInput').value;
+  const alt = $('imgAltInput').value;
+
+  if(!src){ toast('Chưa chọn ảnh','error'); return }
+
+  if(imageTarget){
+    imageTarget.src = src;
+    if(alt) imageTarget.alt = alt;
+  } else {
+    const img = doc.createElement('img');
+    img.src = src;
+    img.alt = alt || '';
+    img.style.maxWidth = '100%';
+    // Insert at end of body or at cursor
+    doc.body.appendChild(img);
+  }
+
+  syncCodeFromPreview();
+  closeModal('imgModal');
+  toast('Đã cập nhật ảnh');
+}
+
+// ═══════════════════════════════════════
+//  YOUTUBE
+// ═══════════════════════════════════════
+function showYouTubeModal(){
+  ytTarget = null;
+  $('ytUrlInput').value = '';
+  $('ytWidthInput').value = '100%';
+  $('ytHeightInput').value = '315';
+  openModal('ytModal');
+}
+
+function parseYouTubeId(url){
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^?&#]+)/,
+    /youtube\.com\/shorts\/([^?&#]+)/
+  ];
+  for(const p of patterns){
+    const m = url.match(p);
+    if(m) return m[1];
+  }
+  return null;
+}
+
+function applyYouTube(){
+  const doc = getPreviewDoc();
+  if(!doc){ toast('Chưa tải HTML','error'); return }
+
+  const url = $('ytUrlInput').value.trim();
+  const id = parseYouTubeId(url);
+  if(!id){ toast('URL YouTube không hợp lệ','error'); return }
+
+  pushUndo();
+  const embedUrl = 'https://www.youtube.com/embed/' + id;
+  const w = $('ytWidthInput').value || '100%';
+  const h = $('ytHeightInput').value || '315';
+
+  if(ytTarget){
+    ytTarget.src = embedUrl;
+    ytTarget.width = w;
+    ytTarget.height = h;
+  } else {
+    const wrapper = doc.createElement('div');
+    wrapper.style.cssText = 'position:relative;width:100%;max-width:' + (w.includes('%') ? w : w+'px');
+    const iframe = doc.createElement('iframe');
+    iframe.src = embedUrl;
+    iframe.width = w;
+    iframe.height = h;
+    iframe.frameBorder = '0';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+    iframe.style.cssText = 'border:none;max-width:100%';
+    wrapper.appendChild(iframe);
+    doc.body.appendChild(wrapper);
+  }
+
+  syncCodeFromPreview();
+  closeModal('ytModal');
+  toast('Đã cập nhật video YouTube');
+}
+
+// ═══════════════════════════════════════
+//  LINK EDITOR
+// ═══════════════════════════════════════
+function showLinkModal(){
+  editingTarget = null;
+  $('linkUrlInput').value = '';
+  $('linkTextInput').value = '';
+  $('linkTargetInput').value = '_blank';
+  openModal('linkModal');
+}
+
+function showLinkModalFromSelection(){
+  const doc = getPreviewDoc();
+  if(!doc) return;
+  const sel = doc.getSelection();
+  if(sel && sel.toString().trim()){
+    savedRange = sel.getRangeAt(0);
+    $('linkTextInput').value = sel.toString();
+
+    // Check if already a link
+    const anchor = sel.anchorNode.parentElement.closest('a');
+    if(anchor){
+      $('linkUrlInput').value = anchor.href;
+      $('linkTargetInput').value = anchor.target || '_blank';
+    } else {
+      $('linkUrlInput').value = '';
+      $('linkTargetInput').value = '_blank';
+    }
+    openModal('linkModal');
+  }
+}
+
+function applyLink(){
+  const doc = getPreviewDoc();
+  if(!doc){ toast('Chưa tải HTML','error'); return }
+
+  const url = $('linkUrlInput').value.trim();
+  if(!url){ toast('Chưa nhập URL','error'); return }
+
+  pushUndo();
+  const text = $('linkTextInput').value;
+  const target = $('linkTargetInput').value;
+
+  // If editing an existing link from context menu
+  if(editingTarget && editingTarget.tagName === 'A'){
+    editingTarget.href = url;
+    editingTarget.target = target;
+    if(text) editingTarget.textContent = text;
+    editingTarget.contentEditable = 'false';
+    editingTarget = null;
+  }
+  // If we have a saved range from selection
+  else if(savedRange){
+    const sel = doc.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(savedRange);
+    doc.execCommand('createLink', false, url);
+
+    // Set target on the created link
+    const links = doc.querySelectorAll('a[href="'+CSS.escape(url)+'"]');
+    links.forEach(a => { a.target = target });
+    savedRange = null;
+  }
+  // Insert new link at end
+  else {
+    const a = doc.createElement('a');
+    a.href = url;
+    a.target = target;
+    a.textContent = text || url;
+    doc.body.appendChild(a);
+  }
+
+  syncCodeFromPreview();
+  closeModal('linkModal');
+  toast('Đã cập nhật link');
+}
+
+function removeLink(){
+  const doc = getPreviewDoc();
+  if(!doc) return;
+  doc.execCommand('unlink');
+  syncCodeFromPreview();
+}
+
+// ═══════════════════════════════════════
+//  UNDO / REDO
+// ═══════════════════════════════════════
+function pushUndo(){
+  const doc = getPreviewDoc();
+  if(!doc) return;
+  // Clean up editing classes before saving
+  const clone = doc.body.cloneNode(true);
+  clone.querySelectorAll('.editor-highlight,.editor-editing,.editor-img-highlight').forEach(el=>{
+    el.classList.remove('editor-highlight','editor-editing','editor-img-highlight');
+  });
+  clone.querySelectorAll('[contenteditable]').forEach(el=>el.removeAttribute('contenteditable'));
+  undoStack.push(clone.innerHTML);
+  if(undoStack.length > 50) undoStack.shift();
+  redoStack = [];
+}
+
+function doUndo(){
+  if(!undoStack.length){ toast('Không có gì để hoàn tác','info'); return }
+  const doc = getPreviewDoc();
+  if(!doc) return;
+  redoStack.push(doc.body.innerHTML);
+  doc.body.innerHTML = undoStack.pop();
+  setupPreviewInteractions();
+  syncCodeFromPreview();
+  toast('Đã hoàn tác');
+}
+
+function doRedo(){
+  if(!redoStack.length){ toast('Không có gì để làm lại','info'); return }
+  const doc = getPreviewDoc();
+  if(!doc) return;
+  undoStack.push(doc.body.innerHTML);
+  doc.body.innerHTML = redoStack.pop();
+  setupPreviewInteractions();
+  syncCodeFromPreview();
+  toast('Đã làm lại');
+}
+
+// ═══════════════════════════════════════
+//  SYNC CODE
+// ═══════════════════════════════════════
+function syncCodeFromPreview(){
+  const doc = getPreviewDoc();
+  if(!doc) return;
+
+  // Get the full HTML including head
+  const html = doc.documentElement.outerHTML;
+
+  // Clean up editor artifacts
+  let cleaned = html
+    .replace(/ class="editor-highlight"/g, '')
+    .replace(/ class="editor-editing"/g, '')
+    .replace(/ class="editor-img-highlight"/g, '')
+    .replace(/ contenteditable="true"/g, '')
+    .replace(/ contenteditable="false"/g, '')
+    .replace(/ class=""/g, '');
+
+  // Remove injected style tag
+  cleaned = cleaned.replace(/<style>\s*\.editor-highlight[\s\S]*?<\/style>/g, '');
+
+  // Wrap with doctype if original had it
+  if(currentHTML.toLowerCase().includes('<!doctype')){
+    cleaned = '<!DOCTYPE html>\n' + cleaned;
+  }
+
+  editor.value = cleaned;
+  currentHTML = cleaned;
+  updateLineNumbers();
+}
+
+// ═══════════════════════════════════════
+//  GET CODE / EXPORT
+// ═══════════════════════════════════════
+function getCode(){
+  syncCodeFromPreview();
+  const code = editor.value;
+  if(!code){ toast('Không có code','error'); return }
+
+  navigator.clipboard.writeText(code).then(()=>{
+    toast('Đã copy code HTML vào clipboard');
+  }).catch(()=>{
+    // Fallback
+    editor.select();
+    document.execCommand('copy');
+    toast('Đã copy code HTML');
+  });
+}
+
+function exportFile(){
+  syncCodeFromPreview();
+  const code = editor.value;
+  if(!code){ toast('Không có code để xuất','error'); return }
+
+  const blob = new Blob([code], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'edited-page.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('Đã tải xuống file HTML');
+}
+
+// ═══════════════════════════════════════
+//  VIEW MODES
+// ═══════════════════════════════════════
+function setView(mode){
+  document.body.dataset.view = mode;
+  document.querySelectorAll('[data-view-btn]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.viewBtn === mode);
+  });
+}
+
+function setResponsive(mode){
+  const wrap = $('previewWrap');
+  wrap.classList.remove('tablet','mobile');
+  if(mode !== 'desktop') wrap.classList.add(mode);
+
+  document.querySelectorAll('[data-resp-btn]').forEach(b=>{
+    b.classList.toggle('active', b.dataset.respBtn === mode);
+  });
+
+  const labels = {desktop:'100%', tablet:'768px', mobile:'375px'};
+  $('previewSize').textContent = labels[mode];
+}
+
+// ═══════════════════════════════════════
+//  THEME
+// ═══════════════════════════════════════
+function toggleTheme(){
+  const isLight = document.documentElement.dataset.theme === 'light';
+  document.documentElement.dataset.theme = isLight ? '' : 'light';
+  $('themeIcon').innerHTML = isLight
+    ? '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>'
+    : '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+}
+
+// ═══════════════════════════════════════
+//  RESIZER
+// ═══════════════════════════════════════
+const resizer = $('resizer');
+const codePanel = document.querySelector('.panel-code');
+
+resizer.addEventListener('mousedown', function(e){
+  isDragging = true;
+  resizer.classList.add('active');
+  document.addEventListener('mousemove', onResize);
+  document.addEventListener('mouseup', stopResize);
+  e.preventDefault();
+});
+
+function onResize(e){
+  if(!isDragging) return;
+  const containerWidth = document.querySelector('.main').offsetWidth;
+  const newWidth = (e.clientX / containerWidth) * 100;
+  if(newWidth > 15 && newWidth < 85){
+    codePanel.style.width = newWidth + '%';
+  }
+}
+
+function stopResize(){
+  isDragging = false;
+  resizer.classList.remove('active');
+  document.removeEventListener('mousemove', onResize);
+  document.removeEventListener('mouseup', stopResize);
+}
+
+// ═══════════════════════════════════════
+//  ELEMENT PATH
+// ═══════════════════════════════════════
+function updateElementPath(el){
+  if(!el) return;
+  let path = [];
+  let current = el;
+  while(current && current.tagName && current.tagName !== 'HTML'){
+    let name = current.tagName.toLowerCase();
+    if(current.id) name += '#' + current.id;
+    else if(current.className && typeof current.className === 'string'){
+      const cls = current.className.replace(/editor-[a-z-]+/g,'').trim();
+      if(cls) name += '.' + cls.split(/\s+/).slice(0,2).join('.');
+    }
+    path.unshift(name);
+    current = current.parentElement;
+  }
+  $('elementPath').textContent = path.join(' › ');
+}
+
+// ═══════════════════════════════════════
+//  KEYBOARD SHORTCUTS
+// ═══════════════════════════════════════
+document.addEventListener('keydown', function(e){
+  if((e.ctrlKey || e.metaKey) && e.key === 'z' && !e.shiftKey){
+    // Only intercept if not in code editor
+    if(document.activeElement !== editor){
+      e.preventDefault();
+      doUndo();
+    }
+  }
+  if((e.ctrlKey || e.metaKey) && (e.key === 'y' || (e.key === 'z' && e.shiftKey))){
+    if(document.activeElement !== editor){
+      e.preventDefault();
+      doRedo();
+    }
+  }
+  if(e.key === 'Escape'){
+    if(editingTarget) stopEditing();
+    document.querySelectorAll('.modal-overlay.visible').forEach(m=>{ m.classList.remove('visible'); m.style.display='none' });
+    $('ctxMenu').classList.remove('visible');
+    hideFloatToolbar();
+  }
+  // Ctrl+Enter to load HTML
+  if((e.ctrlKey || e.metaKey) && e.key === 'Enter'){
+    e.preventDefault();
+    loadHTML();
+  }
+});
+
+// Close modals on overlay click
+document.querySelectorAll('.modal-overlay').forEach(overlay=>{
+  overlay.addEventListener('click', function(e){
+    if(e.target === this){ this.classList.remove('visible'); this.style.display='none' }
+  });
+});
+
+// ═══════════════════════════════════════
+//  SAMPLE HTML
+// ═══════════════════════════════════════
+editor.value = `<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page Mẫu</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', sans-serif; color: #333; }
+    .hero {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white; text-align: center; padding: 80px 20px;
+    }
+    .hero h1 { font-size: 48px; margin-bottom: 16px; }
+    .hero p { font-size: 20px; opacity: 0.9; max-width: 600px; margin: 0 auto 32px; }
+    .hero .btn {
+      display: inline-block; padding: 14px 36px; background: #fff; color: #764ba2;
+      text-decoration: none; border-radius: 30px; font-weight: 700; font-size: 16px;
+      transition: transform 0.2s;
+    }
+    .hero .btn:hover { transform: scale(1.05); }
+    .features { padding: 60px 20px; max-width: 900px; margin: 0 auto; }
+    .features h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card {
+      padding: 24px; border-radius: 12px; background: #f8f9fa;
+      border: 1px solid #e9ecef; text-align: center;
+    }
+    .card h3 { margin-bottom: 8px; color: #667eea; }
+    .card p { font-size: 14px; color: #666; line-height: 1.6; }
+    .cta { background: #f8f9fa; text-align: center; padding: 60px 20px; }
+    .cta h2 { font-size: 28px; margin-bottom: 16px; }
+    .cta a {
+      display: inline-block; padding: 14px 36px; background: #667eea; color: #fff;
+      text-decoration: none; border-radius: 30px; font-weight: 700;
+    }
+    img { max-width: 100%; height: auto; }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Chào mừng bạn đến với trang web</h1>
+    <p>Đây là landing page mẫu để bạn thử nghiệm trình chỉnh sửa HTML trực quan. Nhấn vào bất kỳ text nào để sửa.</p>
+    <a href="#features" class="btn">Tìm hiểu thêm →</a>
+  </section>
+
+  <section class="features" id="features">
+    <h2>Tính năng nổi bật</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>⚡ Nhanh chóng</h3>
+        <p>Chỉnh sửa trực quan ngay trên preview, không cần viết code thủ công.</p>
+      </div>
+      <div class="card">
+        <h3>🎨 Tuỳ biến</h3>
+        <p>Đổi font, cỡ chữ, màu sắc, hình ảnh chỉ với vài cú click.</p>
+      </div>
+      <div class="card">
+        <h3>📱 Responsive</h3>
+        <p>Xem trước giao diện trên Desktop, Tablet, và Mobile.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <h2>Bắt đầu ngay hôm nay!</h2>
+    <p style="margin-bottom: 24px; color: #666;">Nhấn vào bất kỳ phần tử nào ở trên để chỉnh sửa trực quan.</p>
+    <a href="https://example.com">Liên hệ ngay →</a>
+  </section>
+</body>
+</html>`;
+updateLineNumbers();
+
+// ═══════════════════════════════════════
+//  INIT: Load sample on start
+// ═══════════════════════════════════════
+setTimeout(()=> loadHTML(), 300);
+</script>
 </body>
 </html>
